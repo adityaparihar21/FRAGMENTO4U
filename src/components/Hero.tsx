@@ -37,9 +37,10 @@ export default function Hero({ onOpenPreOrder }: HeroProps) {
         style={{ transform: `translateY(${offsetY * 0.3}px)` }}
       >
         <img
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeZHDHDxosMDyozqfla-QRKAlkfAhSI5KzsVJxXOd4zAyd4rPmbSFVNX-NMNF-NV1k0uaqLn6o9i92QeTX_zZ-vlVJMX8NaDF19MpCZjeQAgV3JFosDFCLROuhgZDGrA0ZiyWJMzgORpngrWy1rWd2Yd71FTLsvsSj_wH2HA0LfxDbo8c0gaxEwmwIE2LeqmsHzZzJX2-AMP2nDUndSp1c2VRWzldLE4lrT3g4_0rrtZHLSD5FicM_DzKYjDiZB73ifRrGRettcjE"
+          src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=2400"
           alt="Fragmento Cafe Interior"
-          className="w-full h-full object-cover scale-105 brightness-60"
+          className="w-full h-full object-cover scale-105 brightness-55"
+          referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-primary/30 via-transparent to-mist-cream/90" />
       </div>
@@ -54,7 +55,7 @@ export default function Hero({ onOpenPreOrder }: HeroProps) {
         >
           <div className="w-8 h-px bg-parchment/60" />
           <span className="font-sans text-[10px] uppercase font-semibold text-parchment tracking-[0.3em]">
-            01 / THE EXPERIENCE
+            01 / SPECIALTY COFFEE ATELIER
           </span>
           <div className="w-8 h-px bg-parchment/60" />
         </motion.div>
@@ -65,8 +66,8 @@ export default function Hero({ onOpenPreOrder }: HeroProps) {
           transition={{ duration: 1.4, delay: 0.2, ease: 'easeOut' }}
           className="font-serif text-5xl md:text-7xl text-mist-cream font-medium tracking-tight leading-tight mb-6"
         >
-          Artisanal fragments, <br />
-          <span className="italic">coming together.</span>
+          Artisanal coffee. <br />
+          <span className="italic">Sensory fragments.</span>
         </motion.h1>
 
         <motion.p
@@ -75,7 +76,7 @@ export default function Hero({ onOpenPreOrder }: HeroProps) {
           transition={{ duration: 1.2, delay: 0.5 }}
           className="font-serif text-lg md:text-2xl text-mist-cream/90 italic max-w-xl mb-12 leading-relaxed"
         >
-          "A curated selection of seasonal fragments, distilled into a single moment of clarity."
+          An immersive specialty cafe and slow-roasted ritual in Dehradun, combining curated seasonal single-origins with modular pastry designs.
         </motion.p>
 
         <motion.div

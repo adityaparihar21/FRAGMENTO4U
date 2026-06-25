@@ -161,21 +161,26 @@ export default function CartDrawer({
 
                           {/* Customization labels */}
                           {item.customizations && (
-                            <div className="flex flex-wrap gap-2 mb-3">
-                              {item.customizations.milk && (
-                                <span className="bg-parchment/50 text-earth-dark text-[9px] font-sans font-semibold tracking-wider px-2 py-0.5 uppercase border border-earth-dark/5">
-                                  Milk: {item.customizations.milk}
-                                </span>
-                              )}
-                              {item.customizations.grind && (
-                                <span className="bg-parchment/50 text-earth-dark text-[9px] font-sans font-semibold tracking-wider px-2 py-0.5 uppercase border border-earth-dark/5">
-                                  Grind: {item.customizations.grind}
-                                </span>
-                              )}
+                            <div className="border-l-2 border-brew-clay bg-brew-clay/5 p-2.5 space-y-1.5 my-2.5 w-full">
+                              <div className="font-sans text-[10px] font-bold tracking-[0.2em] text-brew-clay uppercase">
+                                BARISTA SPECIFICATIONS
+                              </div>
+                              <div className="flex flex-wrap gap-1.5">
+                                {item.customizations.milk && (
+                                  <span className="bg-white/85 text-earth-dark text-[11px] font-sans font-semibold tracking-[0.1em] px-2 py-0.5 uppercase border border-earth-dark/10">
+                                    Milk: {item.customizations.milk}
+                                  </span>
+                                )}
+                                {item.customizations.grind && (
+                                  <span className="bg-white/85 text-earth-dark text-[11px] font-sans font-semibold tracking-[0.1em] px-2 py-0.5 uppercase border border-earth-dark/10">
+                                    Grind: {item.customizations.grind}
+                                  </span>
+                                )}
+                              </div>
                               {item.customizations.notes && (
-                                <span className="text-[10px] text-on-surface-variant italic block w-full">
+                                <div className="text-[11px] text-earth-dark/80 italic block w-full leading-relaxed border-t border-earth-dark/5 pt-1 mt-1">
                                   "{item.customizations.notes}"
-                                </span>
+                                </div>
                               )}
                             </div>
                           )}

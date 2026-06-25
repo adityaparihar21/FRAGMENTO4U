@@ -19,6 +19,7 @@ import PreOrderModal from './components/PreOrderModal';
 import LoginModal from './components/LoginModal';
 import ChikmagalurSection from './components/ChikmagalurSection';
 import MemberRitual from './components/MemberRitual';
+import SensoryProfiler from './components/SensoryProfiler';
 import { MenuItem, CartItem, UserProfile } from './types';
 import { Coffee, Compass, ArrowUp, Heart, X, ArrowRight, BookOpen, Award, Leaf } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -394,6 +395,10 @@ export default function App() {
                       </div>
                     </div>
                   </section>
+                  <SensoryProfiler 
+                    onAddToCart={handleAddToCart}
+                    onOpenCart={() => setIsCartOpen(true)}
+                  />
                 </>
               ) : (
                 <div className="pt-[72px]">
@@ -639,11 +644,105 @@ export default function App() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="fixed bottom-6 right-6 bg-earth-dark text-mist-cream p-3 rounded-none border border-parchment/20 shadow-lg hover:bg-brew-clay transition-colors duration-300 group z-40 cursor-pointer"
+            className="fixed bottom-6 right-4 sm:right-6 bg-earth-dark text-mist-cream p-3 rounded-none border border-parchment/20 shadow-lg hover:bg-brew-clay transition-colors duration-300 group z-40 cursor-pointer"
             aria-label="Scroll to top"
           >
             <ArrowUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
           </motion.button>
+        )}
+      </AnimatePresence>
+
+      {/* Floating Artisanal Teleport Desk */}
+      <AnimatePresence>
+        {view === 'landing' && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, x: "-50%" }}
+            animate={{ opacity: 1, y: 0, x: "-50%" }}
+            exit={{ opacity: 0, y: 50, x: "-50%" }}
+            transition={{ type: "spring", stiffness: 260, damping: 20 }}
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-earth-dark/95 border border-parchment/20 backdrop-blur-md px-4 sm:px-6 py-3.5 flex items-center justify-center gap-3 sm:gap-6 shadow-2xl z-40 rounded-none text-mist-cream max-w-[95vw] md:max-w-none"
+          >
+            <div className="flex items-center gap-1.5 border-r border-parchment/10 pr-3 sm:pr-4">
+              <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.2em] text-brew-clay font-bold uppercase whitespace-nowrap">
+                ATELIER JUMP
+              </span>
+            </div>
+
+            <button
+              onClick={() => {
+                setActivePage('menu');
+                window.scrollTo({ top: 0, behavior: 'instant' });
+              }}
+              className={`font-sans text-[10px] sm:text-[11px] font-bold tracking-[0.12em] sm:tracking-[0.18em] uppercase transition-colors duration-200 cursor-pointer border-none bg-transparent ${
+                activePage === 'menu' ? 'text-brew-clay font-extrabold' : 'text-mist-cream/80 hover:text-brew-clay'
+              }`}
+            >
+              Menu
+            </button>
+
+            <span className="h-3 w-[1px] bg-parchment/10" />
+
+            <button
+              onClick={() => {
+                if (activePage !== null) {
+                  setActivePage(null);
+                  setTimeout(() => {
+                    const el = document.getElementById('sensory-profiler-section');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                } else {
+                  const el = document.getElementById('sensory-profiler-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="font-sans text-[10px] sm:text-[11px] font-bold tracking-[0.12em] sm:tracking-[0.18em] uppercase transition-colors duration-200 cursor-pointer border-none bg-transparent text-mist-cream/80 hover:text-brew-clay whitespace-nowrap"
+            >
+              Profiler
+            </button>
+
+            <span className="h-3 w-[1px] bg-parchment/10" />
+
+            <button
+              onClick={() => {
+                setActivePage('visit');
+                window.scrollTo({ top: 0, behavior: 'instant' });
+              }}
+              className={`font-sans text-[10px] sm:text-[11px] font-bold tracking-[0.12em] sm:tracking-[0.18em] uppercase transition-colors duration-200 cursor-pointer border-none bg-transparent ${
+                activePage === 'visit' ? 'text-brew-clay font-extrabold' : 'text-mist-cream/80 hover:text-brew-clay'
+              }`}
+            >
+              Visit
+            </button>
+
+            <span className="h-3 w-[1px] bg-parchment/10" />
+
+            <button
+              onClick={() => {
+                setActivePage('journal');
+                window.scrollTo({ top: 0, behavior: 'instant' });
+              }}
+              className={`font-sans text-[10px] sm:text-[11px] font-bold tracking-[0.12em] sm:tracking-[0.18em] uppercase transition-colors duration-200 cursor-pointer border-none bg-transparent ${
+                activePage === 'journal' ? 'text-brew-clay font-extrabold' : 'text-mist-cream/80 hover:text-brew-clay'
+              }`}
+            >
+              Journal
+            </button>
+
+            {activePage !== null && (
+              <>
+                <span className="h-3 w-[1px] bg-parchment/10" />
+                <button
+                  onClick={() => {
+                    setActivePage(null);
+                    window.scrollTo({ top: 0, behavior: 'instant' });
+                  }}
+                  className="font-sans text-[10px] sm:text-[11px] font-bold tracking-[0.12em] sm:tracking-[0.18em] uppercase text-brew-clay hover:text-white transition-colors duration-200 cursor-pointer border-none bg-transparent whitespace-nowrap"
+                >
+                  Chapters
+                </button>
+              </>
+            )}
+          </motion.div>
         )}
       </AnimatePresence>
 

@@ -113,7 +113,7 @@ export default function MenuRitual({ onAddToCart, onSelectItem }: MenuRitualProp
                             {item.name}
                           </h4>
                           {item.tags?.includes('WASHED') && (
-                            <span className="text-[8px] bg-parchment text-earth-dark px-1.5 py-0.5 tracking-wider font-bold">
+                            <span className="text-[11px] bg-parchment text-earth-dark px-1.5 py-0.5 tracking-[0.15em] font-bold">
                               86+ SCA
                             </span>
                           )}
