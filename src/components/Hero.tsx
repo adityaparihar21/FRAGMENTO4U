@@ -33,16 +33,16 @@ export default function Hero({ onOpenPreOrder }: HeroProps) {
     <section className="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden">
       {/* Background Image with Parallax & Dark Overlay */}
       <div 
-        className="absolute inset-0 z-0 bg-earth-dark"
+        className="absolute inset-0 z-0 bg-[#D4C3B3]"
         style={{ transform: `translateY(${offsetY * 0.3}px)` }}
       >
         <img
-          src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=2400"
+          src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=2400"
           alt="Fragmento Cafe Interior"
-          className="w-full h-full object-cover scale-105 opacity-40 mix-blend-overlay"
+          className="w-full h-full object-cover scale-105 brightness-[0.85] contrast-[1.05]"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-earth-dark/80 via-earth-dark/50 to-mist-cream/95" />
+        <div className="absolute inset-0 bg-gradient-to-b from-earth-dark/30 via-earth-dark/10 to-mist-cream/95" />
       </div>
 
       {/* Hero Content */}
