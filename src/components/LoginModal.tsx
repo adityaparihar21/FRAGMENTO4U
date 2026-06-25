@@ -191,7 +191,7 @@ export default function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginMod
           </div>
 
           {/* Right Column: Functional Canvas */}
-          <div className="lg:col-span-6 p-8 md:p-12 flex flex-col justify-between bg-mist-cream overflow-y-auto">
+          <div className="lg:col-span-6 p-8 md:p-12 flex flex-col justify-between bg-mist-cream text-earth-dark overflow-y-auto">
             {/* Header Identity */}
             <div className="flex justify-between items-center mb-10">
               <div className="flex flex-col">
@@ -252,7 +252,7 @@ export default function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginMod
                       </div>
 
                       {error && (
-                        <div className="bg-red-50 text-red-700 text-xs p-3 font-sans border-l-2 border-red-500 flex items-center gap-1.5">
+                        <div className="bg-red-50 text-red-800 dark:bg-red-950/20 dark:text-red-300 text-xs p-3 font-sans border-l-2 border-red-500 flex items-center gap-1.5">
                           <Info className="w-3.5 h-3.5" /> {error}
                         </div>
                       )}
@@ -325,7 +325,7 @@ export default function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginMod
                       </div>
 
                       {error && (
-                        <div className="bg-red-50 text-red-700 text-xs p-3 font-sans border-l-2 border-red-500 flex items-center gap-1.5">
+                        <div className="bg-red-50 text-red-800 dark:bg-red-950/20 dark:text-red-300 text-xs p-3 font-sans border-l-2 border-red-500 flex items-center gap-1.5">
                           <Info className="w-3.5 h-3.5" /> {error}
                         </div>
                       )}
@@ -378,7 +378,7 @@ export default function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginMod
                           placeholder="Your Name"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
-                          className="w-full bg-white border border-earth-dark/15 p-3 text-sm font-sans outline-none focus:border-brew-clay"
+                          className="w-full bg-parchment/10 text-earth-dark border border-earth-dark/15 p-3 text-sm font-sans outline-none focus:border-brew-clay focus:bg-parchment/15 placeholder:text-earth-dark/40"
                         />
                       </div>
 
@@ -392,12 +392,12 @@ export default function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginMod
                           placeholder="your@email.com"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full bg-white border border-earth-dark/15 p-3 text-sm font-sans outline-none focus:border-brew-clay"
+                          className="w-full bg-parchment/10 text-earth-dark border border-earth-dark/15 p-3 text-sm font-sans outline-none focus:border-brew-clay focus:bg-parchment/15 placeholder:text-earth-dark/40"
                         />
                       </div>
 
                       {error && (
-                        <div className="bg-red-50 text-red-700 text-xs p-3 font-sans border-l-2 border-red-500 flex items-center gap-1.5">
+                        <div className="bg-red-50 text-red-800 dark:bg-red-950/20 dark:text-red-300 text-xs p-3 font-sans border-l-2 border-red-500 flex items-center gap-1.5">
                           <Info className="w-3.5 h-3.5" /> {error}
                         </div>
                       )}
@@ -441,7 +441,7 @@ export default function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginMod
                           placeholder="E.g. Aditya Parihar"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
-                          className="w-full bg-white border border-earth-dark/15 p-3 text-sm font-sans outline-none focus:border-brew-clay"
+                          className="w-full bg-parchment/10 text-earth-dark border border-earth-dark/15 p-3 text-sm font-sans outline-none focus:border-brew-clay focus:bg-parchment/15 placeholder:text-earth-dark/40"
                         />
                       </div>
 
@@ -455,7 +455,7 @@ export default function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginMod
                           placeholder="E.g. 9876543210"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
-                          className="w-full bg-white border border-earth-dark/15 p-3 text-sm font-sans outline-none focus:border-brew-clay"
+                          className="w-full bg-parchment/10 text-earth-dark border border-earth-dark/15 p-3 text-sm font-sans outline-none focus:border-brew-clay focus:bg-parchment/15 placeholder:text-earth-dark/40"
                         />
                       </div>
 
@@ -468,12 +468,12 @@ export default function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginMod
                           placeholder="name@domain.com"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full bg-white border border-earth-dark/15 p-3 text-sm font-sans outline-none focus:border-brew-clay"
+                          className="w-full bg-parchment/10 text-earth-dark border border-earth-dark/15 p-3 text-sm font-sans outline-none focus:border-brew-clay focus:bg-parchment/15 placeholder:text-earth-dark/40"
                         />
                       </div>
 
                       {error && (
-                        <div className="bg-red-50 text-red-700 text-xs p-3 font-sans border-l-2 border-red-500 flex items-center gap-1.5">
+                        <div className="bg-red-50 text-red-800 dark:bg-red-950/20 dark:text-red-300 text-xs p-3 font-sans border-l-2 border-red-500 flex items-center gap-1.5">
                           <Info className="w-3.5 h-3.5" /> {error}
                         </div>
                       )}

@@ -331,15 +331,15 @@ export default function Journal() {
         </div>
 
         {/* Newsletter Subscription Box (From Reference 1) */}
-        <div className="bg-primary-container text-parchment p-8 md:p-16 border border-earth-dark/5 shadow-sm text-center relative overflow-hidden">
+        <div className="bg-[#2B2623] text-[#F9F6F0] p-8 md:p-16 border border-[#F9F6F0]/10 shadow-lg text-center relative overflow-hidden">
           <div className="max-w-2xl mx-auto">
-            <span className="font-sans text-[10px] uppercase font-bold text-brew-clay tracking-[0.25em] mb-4 block">
+            <span className="font-sans text-[10px] uppercase font-bold text-[#E8D9C5] tracking-[0.25em] mb-4 block">
               THE INNER FRAGMENT
             </span>
-            <h3 className="font-serif text-3xl md:text-5xl text-mist-cream leading-tight mb-6">
+            <h3 className="font-serif text-3xl md:text-5xl text-[#F9F6F0] leading-tight mb-6">
               Receive the journal in your mailbox
             </h3>
-            <p className="font-sans text-xs md:text-sm text-parchment/70 leading-relaxed mb-12">
+            <p className="font-sans text-xs md:text-sm text-[#F9F6F0]/85 leading-relaxed mb-12">
               Subscribe to receive physical and digital chronicles of our coffee provenance journey, technical roasting profiles, and first early-access keys to rare micro-lots.
             </p>
 
@@ -354,7 +354,7 @@ export default function Journal() {
                   className="flex flex-col sm:flex-row gap-4 items-end max-w-md mx-auto"
                 >
                   <div className="flex-grow w-full text-left">
-                    <label className="font-sans text-[9px] uppercase tracking-wider font-semibold opacity-60 block mb-2">
+                    <label className="font-sans text-[9px] uppercase tracking-wider font-semibold text-[#E8D9C5]/85 block mb-2">
                       Electronic Mail
                     </label>
                     <input 
@@ -363,13 +363,13 @@ export default function Journal() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="YOU@EMAIL.COM" 
-                      className="w-full bg-transparent border-0 border-b border-parchment/30 focus:border-brew-clay focus:ring-0 text-mist-cream font-mono text-xs pb-3 uppercase tracking-wider"
+                      className="w-full bg-transparent border-0 border-b border-[#F9F6F0]/30 focus:border-brew-clay focus:ring-0 text-[#F9F6F0] font-mono text-xs pb-3 uppercase tracking-wider placeholder-[#F9F6F0]/40"
                     />
                   </div>
                   <button 
                     type="submit"
                     disabled={submitting}
-                    className="w-full sm:w-auto bg-brew-clay hover:bg-mist-cream hover:text-earth-dark text-mist-cream border-none font-sans font-semibold text-[10px] tracking-[0.15em] px-8 py-3.5 uppercase transition-colors cursor-pointer whitespace-nowrap active:scale-95"
+                    className="w-full sm:w-auto bg-brew-clay hover:bg-mist-cream hover:text-[#2B2623] text-mist-cream border-none font-sans font-semibold text-[10px] tracking-[0.15em] px-8 py-3.5 uppercase transition-colors cursor-pointer whitespace-nowrap active:scale-95"
                   >
                     {submitting ? 'SUBSCRIBING...' : 'SUBSCRIBE'}
                   </button>
@@ -379,12 +379,12 @@ export default function Journal() {
                   key="success"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-brew-clay/20 border border-brew-clay/35 py-4 px-6 max-w-md mx-auto"
+                  className="bg-brew-clay/20 border border-brew-clay/35 py-4 px-6 max-w-md mx-auto text-[#F9F6F0]"
                 >
-                  <p className="font-serif text-lg italic text-mist-cream mb-1">
+                  <p className="font-serif text-lg italic text-[#F9F6F0] mb-1">
                     Your presence has been registered.
                   </p>
-                  <p className="font-sans text-[10px] uppercase tracking-wider opacity-80">
+                  <p className="font-sans text-[10px] uppercase tracking-wider text-[#E8D9C5] opacity-90">
                     We respect the sanctity of your mailbox. Issue 01 is on its way.
                   </p>
                 </motion.div>

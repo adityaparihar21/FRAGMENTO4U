@@ -237,7 +237,7 @@ export default function CartDrawer({
                     {orderHistory.map((order) => (
                       <div
                         key={order.id}
-                        className="bg-white border border-earth-dark/15 p-5 shadow-sm relative overflow-hidden transition-all duration-300 hover:shadow-md hover:border-earth-dark/30"
+                        className="bg-parchment/10 border border-earth-dark/15 p-5 shadow-sm relative overflow-hidden transition-all duration-300 hover:shadow-md hover:border-earth-dark/30 text-earth-dark"
                       >
                         {/* Decorative top bar */}
                         <div className="absolute top-0 left-0 right-0 h-[3px] bg-brew-clay/20" />

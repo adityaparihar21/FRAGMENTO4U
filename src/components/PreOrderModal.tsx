@@ -241,7 +241,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                   <div 
                     onClick={() => setSelectedRitual('Pour Over')}
                     className={`border p-5 flex flex-col justify-between cursor-pointer group h-[260px] transition-all duration-300 ${
-                      selectedRitual === 'Pour Over' ? 'border-brew-clay bg-parchment/15' : 'border-earth-dark/10 bg-white hover:border-earth-dark/25'
+                      selectedRitual === 'Pour Over' ? 'border-brew-clay bg-parchment/40' : 'border-earth-dark/10 bg-parchment/10 hover:border-earth-dark/25 hover:bg-parchment/20'
                     }`}
                   >
                     <div>
@@ -255,7 +255,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                       <img 
                         alt="Pour over coffee ritual" 
                         className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbQLuU_dcSt6T__R9GrVKZUKsSpbJ_ugFO8nufu4-rXazHcYvDpaFbGKkc7akoPUtD7FicGQADNxdtpqYBLtZAaUpdQHWR5gowSwcBXVi2a9Wua5j80UlZ1UxuRf92dzkRdPndrViqPMcM6Wsv8PVjI-6__9N6JHd8ZyoDttO199MfuUl01hDs9MChf0bEbap1Ryel7_SRutP-UXL9YMEw-NDj9gcGDKbIGidp4tSWzlLkZOBUxkgle_HpKhb2QNRcpcyJ6LchiQw"
+                        src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=400"
                         referrerPolicy="no-referrer"
                       />
                     </div>
@@ -265,7 +265,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                   <div 
                     onClick={() => setSelectedRitual('Espresso')}
                     className={`border p-5 flex flex-col justify-between cursor-pointer group h-[260px] transition-all duration-300 ${
-                      selectedRitual === 'Espresso' ? 'border-brew-clay bg-parchment/15' : 'border-earth-dark/10 bg-white hover:border-earth-dark/25'
+                      selectedRitual === 'Espresso' ? 'border-brew-clay bg-parchment/40' : 'border-earth-dark/10 bg-parchment/10 hover:border-earth-dark/25 hover:bg-parchment/20'
                     }`}
                   >
                     <div>
@@ -279,7 +279,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                       <img 
                         alt="Espresso shot preparation" 
                         className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXu9oaxMx0qKjgHZrMOGwGwHRb8TrxDRv7jGan0wEAxU0Lb6kGuTqi1RGmmEtPHzY-WWFK26EWHLBzZKqnUu-cIAmhI36Wkxnj1cOVsh_5opadbs3N9i_6YgQu5b01OGKQLndzjw-pVdh5IMkU2z3hjbyJSr_YDsnPPXlYmOE-SYFd-1oCKuFNWA2sk1LfbnWDTA_LAKExm_d6NhHfNxYs4M-ZkUhQ5lzXmKKC2Ice9emGgeYd9WCwIX4m-xCau6XcR5NF30dQFxtes"
+                        src="https://images.unsplash.com/photo-1579888944880-d98341148721?auto=format&fit=crop&q=80&w=400"
                         referrerPolicy="no-referrer"
                       />
                     </div>
@@ -289,7 +289,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                   <div 
                     onClick={() => setSelectedRitual('Filter')}
                     className={`border p-5 flex flex-col justify-between cursor-pointer group h-[260px] transition-all duration-300 ${
-                      selectedRitual === 'Filter' ? 'border-brew-clay bg-parchment/15' : 'border-earth-dark/10 bg-white hover:border-earth-dark/25'
+                      selectedRitual === 'Filter' ? 'border-brew-clay bg-parchment/40' : 'border-earth-dark/10 bg-parchment/10 hover:border-earth-dark/25 hover:bg-parchment/20'
                     }`}
                   >
                     <div>
@@ -303,7 +303,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                       <img 
                         alt="Filter batch brewing container" 
                         className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCF5mg4Xx3zphgG6oDnNwffbazykrWg7UE3eztXn05MQvEbFpJbJxfMwl9_A6uQcgSIGDYYZql8v4dA2MTZBaBXX_-SIcHNeRasBNieJz80ZLre2BONNJ2K81MuncPMfl-NND97ZlICnBQmlRlcO3thLHJwgzTrC9N1B86btGU34I9UfkrlL15YR-I33Zm9G7PJyrCqsXulX82YILdGdZdidu8vM42tdc-eTXTiJfcifzI3L6sHcodR3C5uvj6gHb-2p9BvzSFlZek"
+                        src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=400"
                         referrerPolicy="no-referrer"
                       />
                     </div>
@@ -342,15 +342,15 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                   <div 
                     onClick={() => updateLotDetails('Coorg Estate')}
                     className={`border p-4 flex flex-col sm:flex-row justify-between sm:items-center cursor-pointer group transition-all duration-300 ${
-                      selectedLot === 'Coorg Estate' ? 'border-brew-clay bg-parchment/15' : 'border-earth-dark/10 bg-white hover:border-earth-dark/25'
+                      selectedLot === 'Coorg Estate' ? 'border-brew-clay bg-parchment/40' : 'border-earth-dark/10 bg-parchment/10 hover:border-earth-dark/25 hover:bg-parchment/20'
                     }`}
                   >
                     <div className="flex gap-4 items-center">
-                      <div className="w-16 h-16 bg-parchment flex-shrink-0 overflow-hidden">
+                      <div className="w-16 h-16 bg-parchment/20 flex-shrink-0 overflow-hidden">
                         <img 
                           alt="Coorg raw beans" 
                           className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-transform duration-500"
-                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtymshsiP2brptVMzuNb9nGdi2VE1XG2MKuUjNTym58neJSEbdj3mgF0QMXvQUOnVJe-HpHRIIGzuYva_Q-n936-cpsT3VmRY04BsNMrN9RMibE9zy1dIaC-Y3fzwmAvOAu4mUYCjrV3OyOFV4A9qYcW9exSIJR4Aa0RAB9V0iHEb_hcbAscKZiivQpl1vpeB_bhJOng3qYyWyDYbpa3S2y34PgMtrqvS94mbJ-ZsdHHz6EF0jRpB6ziVLe4Y12lUsUFSyVDCKZck"
+                          src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&q=80&w=200"
                           referrerPolicy="no-referrer"
                         />
                       </div>
@@ -369,15 +369,15 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                   <div 
                     onClick={() => updateLotDetails('Yirgacheffe G1')}
                     className={`border p-4 flex flex-col sm:flex-row justify-between sm:items-center cursor-pointer group transition-all duration-300 ${
-                      selectedLot === 'Yirgacheffe G1' ? 'border-brew-clay bg-parchment/15' : 'border-earth-dark/10 bg-white hover:border-earth-dark/25'
+                      selectedLot === 'Yirgacheffe G1' ? 'border-brew-clay bg-parchment/40' : 'border-earth-dark/10 bg-parchment/10 hover:border-earth-dark/25 hover:bg-parchment/20'
                     }`}
                   >
                     <div className="flex gap-4 items-center">
-                      <div className="w-16 h-16 bg-parchment flex-shrink-0 overflow-hidden">
+                      <div className="w-16 h-16 bg-parchment/20 flex-shrink-0 overflow-hidden">
                         <img 
                           alt="Yirgacheffe beans" 
                           className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-transform duration-500"
-                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyh7kFLEsA2Nsr2LnzrsT3X2dBLj--CA0y6SJHQg2EURpJhxrOc2tmYRvDQYQG7brB1LgtZy642AhnAzgwoRHYA6huSLhS4iTSLmOoe4P9_IJEbX5PdQZLxOEJhb3gugMNY5r6fU0fFwrU9hzYMWK1a3DoVhtIpGC7p4ljTcECeXbNMWEcyqH9z6mNs8EYkUyD1TlUrVTaZdMuOspgmsRf1JZznUOIuzdtAIzYELlaKjeCdMioWidcK2hPjCs7RKzWyyGxrTuXils"
+                          src="https://images.unsplash.com/photo-1610632380989-680fe40816c6?auto=format&fit=crop&q=80&w=200"
                           referrerPolicy="no-referrer"
                         />
                       </div>
@@ -396,15 +396,15 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                   <div 
                     onClick={() => updateLotDetails('La Esperanza')}
                     className={`border p-4 flex flex-col sm:flex-row justify-between sm:items-center cursor-pointer group transition-all duration-300 ${
-                      selectedLot === 'La Esperanza' ? 'border-brew-clay bg-parchment/15' : 'border-earth-dark/10 bg-white hover:border-earth-dark/25'
+                      selectedLot === 'La Esperanza' ? 'border-brew-clay bg-parchment/40' : 'border-earth-dark/10 bg-parchment/10 hover:border-earth-dark/25 hover:bg-parchment/20'
                     }`}
                   >
                     <div className="flex gap-4 items-center">
-                      <div className="w-16 h-16 bg-parchment flex-shrink-0 overflow-hidden">
+                      <div className="w-16 h-16 bg-parchment/20 flex-shrink-0 overflow-hidden">
                         <img 
                           alt="La Esperanza cherries" 
                           className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-transform duration-500"
-                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlZPhnjCIll0K-sR_rwNsMawoBG49jQ-ZIeVlCT1ObKdlZP67STuqYCC_Bd4c4UDGiReKuaBv8ymaXroghwX46MHShEwvrc0z5O5MFNAM3H39-sDC0hoF6UKm-WFzPWyDt1xgIZxqCkMI3HWJQH1t8mYgOjTl7uCN_juv-vkL04Qi_DArV0LJxafKL7Ng_69nk4SuE8s4putP-2l5ZhCM9-HHueCTcvghb7HSofDHokfdNzL_7iLf63ZrixEFAFg5Hj8hKjawHIaM"
+                          src="https://images.unsplash.com/photo-1524350300060-337cbc26647b?auto=format&fit=crop&q=80&w=200"
                           referrerPolicy="no-referrer"
                         />
                       </div>
@@ -469,7 +469,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                             className={`px-4 py-3 border font-sans text-xs font-semibold tracking-wider transition-all duration-200 cursor-pointer ${
                               pickupTime === time 
                                 ? 'border-brew-clay bg-brew-clay text-mist-cream shadow-sm' 
-                                : 'border-earth-dark/10 bg-white hover:border-earth-dark/25 text-earth-dark'
+                                : 'border-earth-dark/10 bg-parchment/10 hover:border-earth-dark/25 text-earth-dark hover:bg-parchment/20'
                             }`}
                           >
                             {time}
@@ -484,15 +484,15 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                         <select
                           value={pickupTime}
                           onChange={(e) => setPickupTime(e.target.value)}
-                          className="w-full bg-white border border-earth-dark/15 p-2.5 text-xs font-sans outline-none focus:border-brew-clay"
+                          className="w-full bg-parchment/10 text-earth-dark border border-earth-dark/15 p-2.5 text-xs font-sans outline-none focus:border-brew-clay"
                         >
-                          <option value="IN 30 MIN">Standard (30 Min Slot)</option>
-                          <option value="08:30 AM">08:30 AM (Morning Flow)</option>
-                          <option value="09:00 AM">09:00 AM</option>
-                          <option value="10:30 AM">10:30 AM (Mid-Morning Bloom)</option>
-                          <option value="12:00 PM">12:00 PM</option>
-                          <option value="03:00 PM">03:00 PM (Afternoon Extraction)</option>
-                          <option value="05:30 PM">05:30 PM</option>
+                          <option value="IN 30 MIN" className="bg-mist-cream text-earth-dark">Standard (30 Min Slot)</option>
+                          <option value="08:30 AM" className="bg-mist-cream text-earth-dark">08:30 AM (Morning Flow)</option>
+                          <option value="09:00 AM" className="bg-mist-cream text-earth-dark">09:00 AM</option>
+                          <option value="10:30 AM" className="bg-mist-cream text-earth-dark">10:30 AM (Mid-Morning Bloom)</option>
+                          <option value="12:00 PM" className="bg-mist-cream text-earth-dark">12:00 PM</option>
+                          <option value="03:00 PM" className="bg-mist-cream text-earth-dark">03:00 PM (Afternoon Extraction)</option>
+                          <option value="05:30 PM" className="bg-mist-cream text-earth-dark">05:30 PM</option>
                         </select>
                       </div>
                     </div>
@@ -509,7 +509,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           placeholder="E.g. Aditya Parihar"
-                          className="w-full bg-white border border-earth-dark/15 p-3 text-sm font-sans outline-none focus:border-brew-clay"
+                          className="w-full bg-parchment/10 text-earth-dark border border-earth-dark/15 p-3 text-sm font-sans outline-none focus:border-brew-clay focus:bg-parchment/15"
                         />
                       </div>
                       
@@ -522,13 +522,13 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
                           placeholder="E.g. +91 9876543210"
-                          className="w-full bg-white border border-earth-dark/15 p-3 text-sm font-sans outline-none focus:border-brew-clay"
+                          className="w-full bg-parchment/10 text-earth-dark border border-earth-dark/15 p-3 text-sm font-sans outline-none focus:border-brew-clay focus:bg-parchment/15"
                         />
                       </div>
                     </div>
                   </div>
 
-                  <div className="space-y-5 bg-surface border border-earth-dark/10 p-5 shadow-sm">
+                  <div className="space-y-5 bg-parchment/5 border border-earth-dark/10 p-5 shadow-sm">
                     {/* Quiet Meter nodes (From Reference 1) */}
                     <div>
                       <div className="flex justify-between items-center mb-3">
@@ -548,7 +548,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                           className={`w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-300 relative z-10 cursor-pointer ${
                             quietMeter === 'Meditative' 
                               ? 'bg-brew-clay border-brew-clay text-mist-cream scale-110 shadow-md' 
-                              : 'bg-white border-earth-dark/15 hover:border-earth-dark/30 text-earth-dark'
+                              : 'bg-parchment/10 border-earth-dark/15 hover:border-earth-dark/30 text-earth-dark hover:bg-parchment/20'
                           }`}
                           title="Meditative solitude"
                         >
@@ -560,7 +560,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                           className={`w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-300 relative z-10 cursor-pointer ${
                             quietMeter === 'Focused' 
                               ? 'bg-brew-clay border-brew-clay text-mist-cream scale-110 shadow-md' 
-                              : 'bg-white border-earth-dark/15 hover:border-earth-dark/30 text-earth-dark'
+                              : 'bg-parchment/10 border-earth-dark/15 hover:border-earth-dark/30 text-earth-dark hover:bg-parchment/20'
                           }`}
                           title="Focused study space"
                         >
@@ -572,7 +572,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                           className={`w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-300 relative z-10 cursor-pointer ${
                             quietMeter === 'Social' 
                               ? 'bg-brew-clay border-brew-clay text-mist-cream scale-110 shadow-md' 
-                              : 'bg-white border-earth-dark/15 hover:border-earth-dark/30 text-earth-dark'
+                              : 'bg-parchment/10 border-earth-dark/15 hover:border-earth-dark/30 text-earth-dark hover:bg-parchment/20'
                           }`}
                           title="Social & interactive discussion"
                         >
@@ -597,7 +597,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                         onChange={(e) => setSpecialInstructions(e.target.value)}
                         placeholder="E.g. pack croissant separately, whole milk, double filter..."
                         rows={2}
-                        className="w-full bg-white border border-earth-dark/15 p-2.5 text-xs font-sans outline-none focus:border-brew-clay resize-none"
+                        className="w-full bg-parchment/10 text-earth-dark border border-earth-dark/15 p-2.5 text-xs font-sans outline-none focus:border-brew-clay resize-none"
                       />
                     </div>
                   </div>
@@ -645,7 +645,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                       <div 
                         onClick={() => setPaymentMethod('card')}
                         className={`border p-4 flex items-center justify-between cursor-pointer transition-all ${
-                          paymentMethod === 'card' ? 'border-brew-clay bg-white shadow-sm' : 'border-earth-dark/10 hover:bg-white'
+                          paymentMethod === 'card' ? 'border-brew-clay bg-parchment/40 shadow-sm' : 'border-earth-dark/10 bg-parchment/10 hover:bg-parchment/20'
                         }`}
                       >
                         <div className="flex items-center gap-3">
@@ -666,7 +666,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                       <div 
                         onClick={() => setPaymentMethod('wallet')}
                         className={`border p-4 flex items-center justify-between cursor-pointer transition-all ${
-                          paymentMethod === 'wallet' ? 'border-brew-clay bg-white shadow-sm' : 'border-earth-dark/10 hover:bg-white'
+                          paymentMethod === 'wallet' ? 'border-brew-clay bg-parchment/40 shadow-sm' : 'border-earth-dark/10 bg-parchment/10 hover:bg-parchment/20'
                         }`}
                       >
                         <div className="flex items-center gap-3">
@@ -686,7 +686,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
 
                     {/* Card input forms (Displayed only when card is selected) */}
                     {paymentMethod === 'card' ? (
-                      <div className="space-y-4 p-4 bg-white/70 border border-earth-dark/5">
+                      <div className="space-y-4 p-4 bg-parchment/15 border border-earth-dark/15">
                         <div className="relative border-b border-earth-dark/20 pb-1">
                           <label className="font-sans text-[8px] text-earth-dark/50 font-bold uppercase block mb-1">Card Number</label>
                           <input 
@@ -695,7 +695,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                             value={cardNumber}
                             onChange={(e) => setCardNumber(e.target.value)}
                             placeholder="0000 0000 0000 0000" 
-                            className="w-full bg-transparent border-none p-0 text-sm font-mono focus:ring-0 tracking-widest placeholder:opacity-40"
+                            className="w-full bg-transparent border-none p-0 text-sm font-mono focus:ring-0 tracking-widest placeholder:opacity-40 text-earth-dark"
                           />
                         </div>
 
@@ -708,7 +708,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                               value={cardExpiry}
                               onChange={(e) => setCardExpiry(e.target.value)}
                               placeholder="09 / 28" 
-                              className="w-full bg-transparent border-none p-0 text-sm font-sans focus:ring-0 placeholder:opacity-40"
+                              className="w-full bg-transparent border-none p-0 text-sm font-sans focus:ring-0 placeholder:opacity-40 text-earth-dark"
                             />
                           </div>
                           <div className="border-b border-earth-dark/20 pb-1">
@@ -719,7 +719,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                               value={cardCvv}
                               onChange={(e) => setCardCvv(e.target.value)}
                               placeholder="•••" 
-                              className="w-full bg-transparent border-none p-0 text-sm font-sans focus:ring-0 placeholder:opacity-40"
+                              className="w-full bg-transparent border-none p-0 text-sm font-sans focus:ring-0 placeholder:opacity-40 text-earth-dark"
                             />
                           </div>
                         </div>
@@ -804,7 +804,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                 </p>
 
                 {/* Stunning Physical Receipt Mockup */}
-                <div className="w-full max-w-md bg-white border border-earth-dark/15 p-6 md:p-8 font-sans shadow-md relative border-b-dashed border-b-4">
+                <div className="w-full max-w-md bg-parchment/20 border border-earth-dark/15 p-6 md:p-8 font-sans shadow-md relative border-b-dashed border-b-4">
                   {/* Header */}
                   <div className="text-center border-b border-earth-dark/10 pb-4 mb-4">
                     <span className="font-serif text-xl tracking-[0.25em] text-earth-dark block">FRAGMENTO</span>
@@ -857,7 +857,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                       {Array.from({ length: 32 }).map((_, i) => (
                         <div 
                           key={i} 
-                          className="bg-primary flex-grow" 
+                          className="bg-mist-cream flex-grow" 
                           style={{ width: `${(i % 3 === 0 ? 3 : i % 2 === 0 ? 1 : 2)}px` }} 
                         />
                       ))}
