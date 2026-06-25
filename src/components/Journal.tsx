@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { BookOpen, Flame, Compass, ChevronRight, X, Clock, HelpCircle, ArrowUpRight, FlameKindling, Info } from 'lucide-react';
+import { BookOpen, Flame, Compass, ChevronRight, X, Clock, HelpCircle, ArrowUpRight, FlameKindling, Info, Play, Pause, Music, Volume2, VolumeX, Disc } from 'lucide-react';
 
 interface Article {
   id: string;
@@ -23,6 +23,123 @@ export default function Journal() {
   const [submitting, setSubmitting] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
   const [email, setEmail] = useState('');
+
+  const vibePlaylist = [
+    { id: 'about-you', title: 'About You', artist: 'The 1975', duration: '05:26', genre: 'DREAM POP / VIBE' },
+    { id: 'always-caesar', title: 'Always', artist: 'Daniel Caesar', duration: '03:45', genre: 'R&B / SOUL' },
+    { id: 'who-knows-caesar', title: 'Who Knows', artist: 'Daniel Caesar', duration: '03:40', genre: 'SOUL / R&B' },
+    { id: 'pink-white', title: 'Pink + White', artist: 'Frank Ocean', duration: '03:04', genre: 'NEO-SOUL / VIBE' },
+    { id: 'white-ferrari', title: 'White Ferrari', artist: 'Frank Ocean', duration: '04:41', genre: 'AMBIENT R&B' },
+    { id: 'best-part', title: 'Best Part', artist: 'Daniel Caesar (feat. H.E.R.)', duration: '03:29', genre: 'R&B / SOUL' },
+  ];
+
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [trackProgress, setTrackProgress] = useState(25);
+  const [elapsedSeconds, setElapsedSeconds] = useState(81);
+  const [isAudioMuted, setIsAudioMuted] = useState(true);
+
+  const audioContextRef = React.useRef<AudioContext | null>(null);
+  const oscillatorsRef = React.useRef<OscillatorNode[]>([]);
+  const gainNodeRef = React.useRef<GainNode | null>(null);
+
+  const startDrone = () => {
+    if (isAudioMuted) return;
+    try {
+      if (!audioContextRef.current) {
+        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+      }
+      const ctx = audioContextRef.current;
+      if (ctx.state === 'suspended') {
+        ctx.resume();
+      }
+
+      oscillatorsRef.current.forEach(osc => { try { osc.stop(); } catch(e){} });
+      oscillatorsRef.current = [];
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.012, ctx.currentTime + 1.5);
+      gain.connect(ctx.destination);
+      gainNodeRef.current = gain;
+
+      const freqs = [110, 165, 220, 275];
+      freqs.forEach((f) => {
+        const osc = ctx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(f, ctx.currentTime);
+        osc.connect(gain);
+        osc.start();
+        oscillatorsRef.current.push(osc);
+      });
+    } catch (e) {
+      console.warn("Web Audio failed:", e);
+    }
+  };
+
+  const stopDrone = () => {
+    if (gainNodeRef.current && audioContextRef.current) {
+      const ctx = audioContextRef.current;
+      const gain = gainNodeRef.current;
+      try {
+        gain.gain.setValueAtTime(gain.gain.value, ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.4);
+        setTimeout(() => {
+          oscillatorsRef.current.forEach(osc => { try { osc.stop(); } catch(e){} });
+          oscillatorsRef.current = [];
+        }, 500);
+      } catch(e) {}
+    }
+  };
+
+  React.useEffect(() => {
+    if (isPlaying && !isAudioMuted) {
+      startDrone();
+    } else {
+      stopDrone();
+    }
+    return () => {
+      stopDrone();
+    };
+  }, [isPlaying, isAudioMuted, currentTrackIndex]);
+
+  React.useEffect(() => {
+    let interval: any = null;
+    if (isPlaying) {
+      interval = setInterval(() => {
+        setElapsedSeconds((prev) => {
+          const currentTrack = vibePlaylist[currentTrackIndex];
+          const [minStr, secStr] = currentTrack.duration.split(':');
+          const totalSecs = parseInt(minStr, 10) * 60 + parseInt(secStr, 10);
+          
+          if (prev >= totalSecs) {
+            setCurrentTrackIndex((prevIdx) => (prevIdx + 1) % vibePlaylist.length);
+            setTrackProgress(0);
+            return 0;
+          }
+          
+          const nextSecs = prev + 1;
+          setTrackProgress(Math.floor((nextSecs / totalSecs) * 100));
+          return nextSecs;
+        });
+      }, 1000);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isPlaying, currentTrackIndex]);
+
+  const handleSelectTrack = (index: number) => {
+    setCurrentTrackIndex(index);
+    setElapsedSeconds(0);
+    setTrackProgress(0);
+  };
+
+  const formatTime = (secs: number) => {
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+  };
 
   const articles: Article[] = [
     {
@@ -327,6 +444,183 @@ export default function Journal() {
             >
               READ HIS FULL INTERVIEW
             </button>
+          </div>
+        </div>
+
+        {/* Acoustic Ritual Section */}
+        <div className="border-t border-earth-dark/10 pt-20 mb-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            {/* Editorial introduction */}
+            <div className="lg:col-span-5 flex flex-col justify-center">
+              <span className="font-sans text-[10px] uppercase font-bold text-brew-clay tracking-[0.25em] mb-4 block">
+                04 / ACOUSTIC RITUAL
+              </span>
+              <h3 className="font-serif text-3xl md:text-5xl text-earth-dark font-medium leading-tight mb-6">
+                Soundscapes of Stillness
+              </h3>
+              <p className="font-sans text-sm md:text-base text-on-surface-variant leading-relaxed mb-6">
+                Sound is a physical ingredient. Just like the high elevations of Karnataka define bean density, the sonic atmosphere of our Rajpur Road atelier influences how you perceive flavor clarity. 
+              </p>
+              <p className="font-sans text-xs md:text-sm text-on-surface-variant/80 italic leading-relaxed border-l-2 border-brew-clay/40 pl-4 py-1.5 mb-6">
+                "Our 'Atelier Vibe' playlist is designed specifically to harmonize with the meditative rhythm of pour-overs, featuring slow R&B, shoegaze, and dream-pop textures."
+              </p>
+              
+              <div className="bg-parchment/10 border border-earth-dark/10 p-4 rounded-none text-earth-dark text-xs flex items-center gap-3">
+                <Info className="w-4 h-4 text-brew-clay shrink-0" />
+                <span>Toggle the <strong className="text-brew-clay font-semibold">Atelier Hum</strong> in the player to engage a quiet synthetic background drone matching the frequency of our roasters.</span>
+              </div>
+            </div>
+
+            {/* The Vibe Player Deck */}
+            <div className="lg:col-start-7 lg:col-span-6 bg-[#211E1C] text-[#F9F6F0] p-6 md:p-8 border border-earth-dark/15 shadow-xl relative overflow-hidden flex flex-col gap-6">
+              {/* Decorative vintage player details */}
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-brew-clay" />
+              <div className="flex justify-between items-center text-[#E8D9C5] font-mono text-[9px] tracking-wider">
+                <span>MODEL: DECK-VIBE-01</span>
+                <span className="flex items-center gap-1.5">
+                  <span className={`w-1.5 h-1.5 rounded-full bg-brew-clay ${isPlaying ? 'animate-pulse' : ''}`} />
+                  {isPlaying ? 'PLAYING_ONLINE' : 'SYSTEM_PAUSED'}
+                </span>
+              </div>
+
+              {/* Active track panel */}
+              <div className="bg-black/40 border border-[#F9F6F0]/10 p-5 flex items-center justify-between gap-4">
+                <div className="flex items-center gap-4 min-w-0">
+                  {/* Vinyl Record animation */}
+                  <div className="relative shrink-0">
+                    <div className={`w-12 h-12 rounded-full bg-neutral-900 border border-neutral-700 flex items-center justify-center relative shadow-inner ${isPlaying ? 'animate-spin [animation-duration:8s]' : ''}`}>
+                      <Disc className="w-8 h-8 text-[#E8D9C5]/50" />
+                      <div className="w-3 h-3 rounded-full bg-[#211E1C] absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 border border-neutral-800" />
+                    </div>
+                  </div>
+                  <div className="min-w-0">
+                    <span className="font-sans text-[8px] tracking-[0.25em] text-[#E8D9C5] font-bold uppercase block mb-1">
+                      NOW RESONATING
+                    </span>
+                    <h4 className="font-serif text-lg text-[#F9F6F0] tracking-tight font-medium truncate">
+                      {vibePlaylist[currentTrackIndex].title}
+                    </h4>
+                    <p className="font-sans text-xs text-[#F9F6F0]/60 truncate">
+                      {vibePlaylist[currentTrackIndex].artist} — {vibePlaylist[currentTrackIndex].genre}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Simulated Audio Visualizer bar list */}
+                <div className="flex items-end gap-1 h-6">
+                  {[1, 2, 3, 4, 5].map((bar) => {
+                    const delay = bar * 0.15;
+                    return (
+                      <motion.div
+                        key={bar}
+                        animate={isPlaying ? {
+                          height: [8, 24, 12, 28, 6][bar % 5],
+                        } : {
+                          height: 6
+                        }}
+                        transition={isPlaying ? {
+                          duration: 0.8,
+                          repeat: Infinity,
+                          repeatType: 'reverse',
+                          delay: delay
+                        } : {}}
+                        className="w-1 bg-brew-clay"
+                        style={{ height: '6px' }}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Slider Progress Bar */}
+              <div>
+                <div className="w-full bg-[#F9F6F0]/10 h-[3px] relative mb-2">
+                  <div 
+                    className="bg-brew-clay h-full transition-all duration-300"
+                    style={{ width: `${trackProgress}%` }}
+                  />
+                </div>
+                <div className="flex justify-between items-center text-[10px] font-mono text-[#F9F6F0]/60">
+                  <span>{formatTime(elapsedSeconds)}</span>
+                  <span>{vibePlaylist[currentTrackIndex].duration}</span>
+                </div>
+              </div>
+
+              {/* Master Playback controls */}
+              <div className="flex justify-between items-center bg-black/25 px-4 py-3 border border-[#F9F6F0]/5">
+                <div className="flex items-center gap-4">
+                  {/* Play/Pause Button */}
+                  <button
+                    onClick={() => setIsPlaying(!isPlaying)}
+                    className="w-12 h-12 bg-brew-clay text-mist-cream hover:bg-mist-cream hover:text-black transition-all flex items-center justify-center border-none cursor-pointer rounded-none active:scale-95 animate-none"
+                    aria-label={isPlaying ? "Pause track" : "Play track"}
+                  >
+                    {isPlaying ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-0.5" />}
+                  </button>
+
+                  <div className="leading-tight">
+                    <span className="font-sans text-[8px] font-bold tracking-widest text-[#E8D9C5] uppercase block mb-1">
+                      ACTIVE DECK
+                    </span>
+                    <span className="font-serif text-sm italic">
+                      {isPlaying ? 'Resonating Slow Vibe' : 'Acoustic Feed Idle'}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Mute/Drone Control */}
+                <button
+                  onClick={() => setIsAudioMuted(!isAudioMuted)}
+                  className={`flex items-center gap-2 px-3 py-1.5 border font-mono text-[9px] tracking-widest uppercase transition-all duration-300 cursor-pointer ${
+                    !isAudioMuted 
+                      ? 'border-brew-clay bg-brew-clay/20 text-[#E8D9C5]' 
+                      : 'border-[#F9F6F0]/20 hover:border-[#F9F6F0]/40 text-[#F9F6F0]/60'
+                  }`}
+                >
+                  {!isAudioMuted ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
+                  <span>{isAudioMuted ? 'ENGAGE HUM' : 'HUM ENGAGED'}</span>
+                </button>
+              </div>
+
+              {/* Playlist Selection Container */}
+              <div className="border-t border-[#F9F6F0]/10 pt-4">
+                <span className="font-mono text-[9px] tracking-wider text-[#E8D9C5] uppercase block mb-3">
+                  ATELIER VIBE SELECTOR
+                </span>
+                <div className="space-y-1 max-h-[160px] overflow-y-auto pr-1">
+                  {vibePlaylist.map((track, index) => {
+                    const isActive = index === currentTrackIndex;
+                    return (
+                      <button
+                        key={track.id}
+                        onClick={() => handleSelectTrack(index)}
+                        className={`w-full text-left p-2.5 border-none cursor-pointer flex items-center justify-between text-xs transition-colors duration-200 ${
+                          isActive 
+                            ? 'bg-brew-clay text-mist-cream font-medium' 
+                            : 'bg-black/15 hover:bg-black/30 text-[#F9F6F0]/80 hover:text-white'
+                        }`}
+                      >
+                        <div className="flex items-center gap-3 min-w-0">
+                          <span className="font-mono text-[9px] opacity-40">0{index + 1}</span>
+                          <div className="min-w-0">
+                            <span className="block font-sans truncate text-left">{track.title}</span>
+                            <span className={`block text-[9px] font-sans opacity-65 text-left ${isActive ? 'text-[#F9F6F0]/85' : 'text-[#F9F6F0]/50'}`}>
+                              {track.artist}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3 shrink-0">
+                          <span className="font-mono text-[9px] opacity-60">{track.duration}</span>
+                          {isActive && isPlaying && (
+                            <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
+                          )}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

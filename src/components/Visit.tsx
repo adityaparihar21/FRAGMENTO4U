@@ -17,6 +17,11 @@ export default function Visit({ onOpenPreOrder }: VisitProps) {
   const [pulseWidth, setPulseWidth] = useState(35); // Meditative atmosphere default is 35%
 
   const playlist = [
+    { id: 'pink-white', title: 'Pink + White — Frank Ocean', genre: 'NEO-SOUL / VIBE • 03:04' },
+    { id: 'about-you', title: 'About You — The 1975', genre: 'DREAM POP / VIBE • 05:26' },
+    { id: 'white-ferrari', title: 'White Ferrari — Frank Ocean', genre: 'AMBIENT R&B • 04:41' },
+    { id: 'always-caesar', title: 'Always — Daniel Caesar', genre: 'R&B / SOUL • 03:45' },
+    { id: 'who-knows-caesar', title: 'Who Knows — Daniel Caesar', genre: 'SOUL / R&B • 03:40' },
     { id: 'equinox', title: 'Equinox (In Doon)', genre: 'MODULAR AMBIENT • 08:42' },
     { id: 'shadow', title: 'Shadow Rituals', genre: 'MINIMALIST SERIF • 06:15' },
     { id: 'coffee', title: 'Coffee & Stone', genre: 'FOUND SOUNDS • 12:00' },
