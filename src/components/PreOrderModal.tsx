@@ -46,6 +46,103 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
   const [brewingProgress, setBrewingProgress] = useState(0);
   const [brewingPhase, setBrewingPhase] = useState<'grinding' | 'blooming' | 'extracting' | 'swirling' | 'done'>('grinding');
 
+  // Audio Context Ref for Immersive Checkout
+  const audioCtxRef = React.useRef<AudioContext | null>(null);
+  const oscRef = React.useRef<OscillatorNode | null>(null);
+  const gainRef = React.useRef<GainNode | null>(null);
+  const noiseRef = React.useRef<AudioBufferSourceNode | null>(null);
+  const noiseGainRef = React.useRef<GainNode | null>(null);
+
+  useEffect(() => {
+    if (step === 5) {
+      if (!audioCtxRef.current) {
+        audioCtxRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+      }
+
+      const ctx = audioCtxRef.current;
+      if (ctx.state === 'suspended') {
+        ctx.resume();
+      }
+
+      // Create Gain node for master volume
+      if (!gainRef.current) {
+        gainRef.current = ctx.createGain();
+        gainRef.current.connect(ctx.destination);
+      }
+      
+      const masterGain = gainRef.current;
+      masterGain.gain.setValueAtTime(0, ctx.currentTime);
+      masterGain.gain.linearRampToValueAtTime(0.08, ctx.currentTime + 1.5); // fade in
+
+      // 1. Drone Oscillator
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(120, ctx.currentTime); // Low hum
+      osc.connect(masterGain);
+      osc.start();
+      oscRef.current = osc;
+
+      // 2. White Noise for "brewing/grinding/hiss" sound
+      const bufferSize = ctx.sampleRate * 2;
+      const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const output = noiseBuffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+      }
+      const noiseSource = ctx.createBufferSource();
+      noiseSource.buffer = noiseBuffer;
+      noiseSource.loop = true;
+      
+      const noiseGain = ctx.createGain();
+      noiseGain.gain.setValueAtTime(0, ctx.currentTime);
+      noiseSource.connect(noiseGain);
+      noiseGain.connect(masterGain);
+      noiseSource.start();
+      
+      noiseRef.current = noiseSource;
+      noiseGainRef.current = noiseGain;
+
+      return () => {
+        // fade out
+        if (gainRef.current && audioCtxRef.current) {
+           gainRef.current.gain.linearRampToValueAtTime(0, audioCtxRef.current.currentTime + 1);
+        }
+        setTimeout(() => {
+          if (oscRef.current) {
+            oscRef.current.stop();
+            oscRef.current.disconnect();
+            oscRef.current = null;
+          }
+          if (noiseRef.current) {
+            noiseRef.current.stop();
+            noiseRef.current.disconnect();
+            noiseRef.current = null;
+          }
+        }, 1100);
+      };
+    }
+  }, [step]);
+
+  // Adjust sound based on brewing progress
+  useEffect(() => {
+    if (step === 5 && audioCtxRef.current && oscRef.current && noiseGainRef.current) {
+      const ctx = audioCtxRef.current;
+      // Frequency rises slightly as extraction completes
+      oscRef.current.frequency.linearRampToValueAtTime(120 + (brewingProgress / 2), ctx.currentTime + 0.1);
+      
+      // Noise levels based on phase
+      if (brewingPhase === 'grinding') {
+         noiseGainRef.current.gain.linearRampToValueAtTime(0.05, ctx.currentTime + 0.1);
+      } else if (brewingPhase === 'blooming') {
+         noiseGainRef.current.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+      } else if (brewingPhase === 'extracting') {
+         noiseGainRef.current.gain.linearRampToValueAtTime(0.03, ctx.currentTime + 0.1);
+      } else {
+         noiseGainRef.current.gain.linearRampToValueAtTime(0.005, ctx.currentTime + 0.1);
+      }
+    }
+  }, [brewingProgress, brewingPhase, step]);
+
   // Calculate pricing
   const isCartActive = cartItems.length > 0;
   const cartSubtotal = cartItems.reduce((acc, item) => acc + item.menuItem.price * item.quantity, 0);
@@ -169,7 +266,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
     localStorage.setItem('fragmento_orders', JSON.stringify(updatedHistory));
 
     setCurrentOrder(newOrder);
-    setStep(5); // Success step
+    setStep(6); // Success step
     onClearCart();
   };
 

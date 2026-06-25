@@ -43,6 +43,8 @@ export default function Journal() {
   const oscillatorsRef = React.useRef<OscillatorNode[]>([]);
   const gainNodeRef = React.useRef<GainNode | null>(null);
 
+  const intervalRef = React.useRef<any>(null);
+
   const startDrone = () => {
     if (isAudioMuted) return;
     try {
@@ -56,14 +58,16 @@ export default function Journal() {
 
       oscillatorsRef.current.forEach(osc => { try { osc.stop(); } catch(e){} });
       oscillatorsRef.current = [];
+      if (intervalRef.current) clearInterval(intervalRef.current);
 
       const gain = ctx.createGain();
       gain.gain.setValueAtTime(0, ctx.currentTime);
-      gain.gain.linearRampToValueAtTime(0.012, ctx.currentTime + 1.5);
+      gain.gain.linearRampToValueAtTime(0.015, ctx.currentTime + 1.5);
       gain.connect(ctx.destination);
       gainNodeRef.current = gain;
 
-      const freqs = [110, 165, 220, 275];
+      // Base drone
+      const freqs = [110, 165];
       freqs.forEach((f) => {
         const osc = ctx.createOscillator();
         osc.type = 'sine';
@@ -72,12 +76,52 @@ export default function Journal() {
         osc.start();
         oscillatorsRef.current.push(osc);
       });
+
+      // Procedural Melody Generator based on track index
+      const scales = [
+        [220, 246.94, 277.18, 329.63, 369.99], // A Major pentatonic (Track 1)
+        [261.63, 293.66, 329.63, 392.00, 440.00], // C Major pentatonic (Track 2)
+        [196.00, 220.00, 246.94, 293.66, 329.63], // G Major pentatonic (Track 3)
+        [246.94, 277.18, 311.13, 369.99, 415.30]  // B Major pentatonic (Track 4)
+      ];
+      
+      const currentScale = scales[currentTrackIndex % scales.length];
+
+      intervalRef.current = setInterval(() => {
+        if (!audioContextRef.current) return;
+        const noteCtx = audioContextRef.current;
+        
+        // Random note from scale
+        const noteFreq = currentScale[Math.floor(Math.random() * currentScale.length)];
+        
+        const noteOsc = noteCtx.createOscillator();
+        const noteGain = noteCtx.createGain();
+        
+        noteOsc.type = 'sine';
+        noteOsc.frequency.setValueAtTime(noteFreq * (Math.random() > 0.5 ? 2 : 1), noteCtx.currentTime); // Sometimes an octave higher
+        
+        // Envelope
+        noteGain.gain.setValueAtTime(0, noteCtx.currentTime);
+        noteGain.gain.linearRampToValueAtTime(0.05, noteCtx.currentTime + 0.1);
+        noteGain.gain.exponentialRampToValueAtTime(0.001, noteCtx.currentTime + 3);
+        
+        noteOsc.connect(noteGain);
+        noteGain.connect(gainNodeRef.current!);
+        
+        noteOsc.start();
+        noteOsc.stop(noteCtx.currentTime + 3);
+      }, 800); // play a note every 800ms
+
     } catch (e) {
       console.warn("Web Audio failed:", e);
     }
   };
 
   const stopDrone = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
     if (gainNodeRef.current && audioContextRef.current) {
       const ctx = audioContextRef.current;
       const gain = gainNodeRef.current;
