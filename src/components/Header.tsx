@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Menu, ShoppingBag, X, Coffee, MapPin, Compass, BookOpen, User, LogOut, Leaf, Award, Sun, Moon } from 'lucide-react';
+import { Menu, ShoppingBag, X, Coffee, MapPin, Compass, BookOpen, User, LogOut, Leaf, Award, Sun, Moon, Music } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { UserProfile } from '../types';
 
@@ -181,6 +181,20 @@ export default function Header({
               ) : (
                 <Moon className="w-5 h-5 group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-500" />
               )}
+            </button>
+
+            {/* Atelier Music Playlist shortcut */}
+            <button
+              onClick={() => handleLandingNav('journal')}
+              className="p-2 hover:text-brew-clay text-earth-dark transition-colors group cursor-pointer flex items-center gap-1.5"
+              title="Atelier Ambient Playlist"
+              aria-label="Open Ambient Playlist"
+              id="nav-playlist-btn"
+            >
+              <Music className="w-5 h-5 group-hover:scale-115 transition-transform text-earth-dark" />
+              <span className="hidden md:inline font-sans text-[10px] tracking-widest font-bold uppercase opacity-80">
+                PLAYLIST
+              </span>
             </button>
 
             {/* Shopping Cart button */}

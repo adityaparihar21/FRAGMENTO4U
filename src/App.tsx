@@ -575,9 +575,23 @@ export default function App() {
         {/* Bottom bar */}
         <div className="max-w-6xl mx-auto border-t border-parchment/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] opacity-40 tracking-wider font-sans uppercase gap-4">
           <span>© {new Date().getFullYear()} FRAGMENTO COFFEE CO. ALL RIGHTS RESERVED.</span>
-          <span className="flex items-center gap-1">
-            MADE WITH INTENTION <Heart className="w-3 h-3 text-brew-clay fill-brew-clay" /> IN DEHRADUN
-          </span>
+          <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-right">
+            <span className="flex items-center gap-1">
+              MADE WITH INTENTION <Heart className="w-3 h-3 text-brew-clay fill-brew-clay" /> IN DEHRADUN
+            </span>
+            <span className="hidden md:inline">|</span>
+            <span className="flex items-center gap-1">
+              MADE BY{' '}
+              <a 
+                href="https://portfolioparihar21.vercel.app" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="font-bold underline text-mist-cream hover:text-brew-clay transition-colors uppercase tracking-widest cursor-pointer"
+              >
+                ADITYA PARIHAR
+              </a>
+            </span>
+          </div>
         </div>
       </footer>
 

@@ -321,7 +321,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                       <img 
                         alt="Espresso shot preparation" 
                         className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
-                        src="https://images.unsplash.com/photo-1579888944880-d98341148721?auto=format&fit=crop&q=80&w=400"
+                        src="https://images.unsplash.com/photo-151097252790b-a481d234860a?auto=format&fit=crop&q=80&w=400"
                         referrerPolicy="no-referrer"
                       />
                     </div>
@@ -446,7 +446,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                         <img 
                           alt="La Esperanza cherries" 
                           className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-transform duration-500"
-                          src="https://images.unsplash.com/photo-1524350300060-337cbc26647b?auto=format&fit=crop&q=80&w=200"
+                          src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&q=80&w=200"
                           referrerPolicy="no-referrer"
                         />
                       </div>
