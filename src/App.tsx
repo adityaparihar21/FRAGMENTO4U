@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Provenance from './components/Provenance';
+import OurStory from './components/OurStory';
 import RitualBento from './components/RitualBento';
 import MenuRitual from './components/MenuRitual';
 import LotMeta from './components/LotMeta';
@@ -82,7 +83,7 @@ export default function App() {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 500);
 
-      const sections = ['provenance-section', 'chikmagalur-section', 'journal-section', 'menu-ritual-section', 'visit-section'];
+      const sections = ['provenance-section', 'our-story-section', 'chikmagalur-section', 'journal-section', 'menu-ritual-section', 'visit-section'];
       let current = 'hero';
 
       for (const sectionId of sections) {
@@ -90,7 +91,8 @@ export default function App() {
         if (el) {
           const rect = el.getBoundingClientRect();
           if (rect.top <= 200) {
-            if (sectionId === 'provenance-section') current = 'story';
+            if (sectionId === 'provenance-section') current = 'provenance';
+            else if (sectionId === 'our-story-section') current = 'story';
             else if (sectionId === 'chikmagalur-section') current = 'chikmagalur';
             else if (sectionId === 'journal-section') current = 'journal';
             else if (sectionId === 'menu-ritual-section') current = 'menu';
@@ -201,6 +203,9 @@ export default function App() {
 
               {/* Narrative & Story */}
               <Provenance />
+
+              {/* Our Story Chapter-by-Chapter Sourcing, Selection, Roasting & Service */}
+              <OurStory />
 
               {/* Terraced single origin study of Chikmagalur */}
               <ChikmagalurSection 

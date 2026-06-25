@@ -111,6 +111,14 @@ export default function Header({
               THE JOURNAL
             </button>
             <button
+              onClick={() => handleLandingNav('our-story-section')}
+              className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors ${
+                view === 'landing' && activeSection === 'story' ? 'text-brew-clay underline underline-offset-4' : 'text-earth-dark/70'
+              }`}
+            >
+              OUR STORY
+            </button>
+            <button
               onClick={() => handleLandingNav('menu-ritual-section')}
               className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors ${
                 view === 'landing' && activeSection === 'menu' ? 'text-brew-clay underline underline-offset-4' : 'text-earth-dark/70'
@@ -261,7 +269,7 @@ export default function Header({
                 <nav className="flex flex-col gap-8">
                   <button
                     onClick={() => handleLandingNav('provenance-section')}
-                    className="flex items-center gap-4 text-left group cursor-pointer w-full"
+                    className="flex items-center gap-4 text-left group cursor-pointer w-full bg-transparent border-none"
                   >
                     <Compass className="w-5 h-5 text-brew-clay group-hover:rotate-45 transition-transform duration-300" />
                     <div>
@@ -270,6 +278,21 @@ export default function Header({
                       </span>
                       <span className="font-label-caps text-[9px] text-earth-dark/50 tracking-wider">
                         01 / THE STORY & STUDY OF BEANS
+                      </span>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => handleLandingNav('our-story-section')}
+                    className="flex items-center gap-4 text-left group cursor-pointer w-full bg-transparent border-none"
+                  >
+                    <Award className="w-5 h-5 text-brew-clay group-hover:scale-110 transition-transform duration-300" />
+                    <div>
+                      <span className="font-serif text-xl text-earth-dark group-hover:text-brew-clay transition-colors block">
+                        Our Story
+                      </span>
+                      <span className="font-label-caps text-[9px] text-earth-dark/50 tracking-wider">
+                        01.2 / THE NARRATIVE OF PERSISTENCE
                       </span>
                     </div>
                   </button>
