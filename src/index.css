@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "EB Garamond", Georgia, serif;
+  
+  --color-earth-dark: #2B2623;
+  --color-brew-clay: #C16646;
+  --color-mist-cream: #F9F6F0;
+  --color-parchment: #E8D9C5;
+  --color-surface-dim: #dcdad4;
+  --color-on-surface-variant: #4d4540;
+}
+
+@layer utilities {
+  .fragment-border {
+    border: 0.5px solid rgba(43, 38, 35, 0.15);
+  }
+  
+  .text-shadow-elegant {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Custom scrollbar for minimalist narrative */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #F9F6F0;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #2B2623;
+    border-radius: 0px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #C16646;
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}

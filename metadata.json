@@ -1,0 +1,6 @@
+{
+  "name": "FRAGMENTO",
+  "description": "An artisanal coffee and modular pastry experience in Dehradun. Slow roasted, small batch, crafted with intentional fragments.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
