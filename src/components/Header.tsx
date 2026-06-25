@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Menu, ShoppingBag, X, Coffee, MapPin, Compass, BookOpen, User, LogOut, Leaf } from 'lucide-react';
+import { Menu, ShoppingBag, X, Coffee, MapPin, Compass, BookOpen, User, LogOut, Leaf, Award } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { UserProfile } from '../types';
 
@@ -16,6 +16,8 @@ interface HeaderProps {
   userProfile: UserProfile | null;
   onOpenLogin: () => void;
   onLogout: () => void;
+  view: 'landing' | 'member-ritual';
+  onViewChange: (view: 'landing' | 'member-ritual') => void;
 }
 
 export default function Header({ 
@@ -25,7 +27,9 @@ export default function Header({
   activeSection,
   userProfile,
   onOpenLogin,
-  onLogout
+  onLogout,
+  view,
+  onViewChange
 }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -46,6 +50,19 @@ export default function Header({
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleLandingNav = (sectionId: string) => {
+    onViewChange('landing');
+    setDrawerOpen(false);
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }, 120);
   };
 
   return (
@@ -73,7 +90,10 @@ export default function Header({
 
           {/* Logo */}
           <div
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={() => {
+              onViewChange('landing');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
             className="font-serif text-2xl md:text-3xl tracking-[0.25em] text-earth-dark font-medium cursor-pointer text-shadow-elegant select-none active:scale-95 transition-transform"
             id="nav-logo"
           >
@@ -83,25 +103,35 @@ export default function Header({
           {/* Right Controls */}
           <div className="flex items-center gap-4 md:gap-8">
             <button
-              onClick={() => scrollToSection('journal-section')}
+              onClick={() => handleLandingNav('journal-section')}
               className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors ${
-                activeSection === 'journal' ? 'text-brew-clay underline underline-offset-4' : 'text-earth-dark/70'
+                view === 'landing' && activeSection === 'journal' ? 'text-brew-clay underline underline-offset-4' : 'text-earth-dark/70'
               }`}
             >
               THE JOURNAL
             </button>
             <button
-              onClick={() => scrollToSection('menu-ritual-section')}
+              onClick={() => handleLandingNav('menu-ritual-section')}
               className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors ${
-                activeSection === 'menu' ? 'text-brew-clay underline underline-offset-4' : 'text-earth-dark/70'
+                view === 'landing' && activeSection === 'menu' ? 'text-brew-clay underline underline-offset-4' : 'text-earth-dark/70'
               }`}
             >
               MENU RITUAL
             </button>
             <button
-              onClick={() => scrollToSection('visit-section')}
+              onClick={() => {
+                onViewChange('member-ritual');
+              }}
               className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors ${
-                activeSection === 'visit' ? 'text-brew-clay underline underline-offset-4' : 'text-earth-dark/70'
+                view === 'member-ritual' ? 'text-brew-clay underline underline-offset-4' : 'text-earth-dark/70'
+              }`}
+            >
+              THE RITUAL
+            </button>
+            <button
+              onClick={() => handleLandingNav('visit-section')}
+              className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors ${
+                view === 'landing' && activeSection === 'visit' ? 'text-brew-clay underline underline-offset-4' : 'text-earth-dark/70'
               }`}
             >
               VISIT
@@ -230,7 +260,7 @@ export default function Header({
                 {/* Navigation links */}
                 <nav className="flex flex-col gap-8">
                   <button
-                    onClick={() => scrollToSection('provenance-section')}
+                    onClick={() => handleLandingNav('provenance-section')}
                     className="flex items-center gap-4 text-left group cursor-pointer w-full"
                   >
                     <Compass className="w-5 h-5 text-brew-clay group-hover:rotate-45 transition-transform duration-300" />
@@ -245,7 +275,7 @@ export default function Header({
                   </button>
 
                   <button
-                    onClick={() => scrollToSection('chikmagalur-section')}
+                    onClick={() => handleLandingNav('chikmagalur-section')}
                     className="flex items-center gap-4 text-left group cursor-pointer w-full"
                   >
                     <Leaf className="w-5 h-5 text-brew-clay group-hover:scale-110 transition-transform duration-300" />
@@ -260,7 +290,7 @@ export default function Header({
                   </button>
 
                   <button
-                    onClick={() => scrollToSection('journal-section')}
+                    onClick={() => handleLandingNav('journal-section')}
                     className="flex items-center gap-4 text-left group cursor-pointer w-full"
                   >
                     <BookOpen className="w-5 h-5 text-brew-clay group-hover:scale-110 transition-transform duration-300" />
@@ -275,7 +305,7 @@ export default function Header({
                   </button>
 
                   <button
-                    onClick={() => scrollToSection('ritual-section')}
+                    onClick={() => handleLandingNav('ritual-section')}
                     className="flex items-center gap-4 text-left group cursor-pointer w-full"
                   >
                     <Coffee className="w-5 h-5 text-brew-clay group-hover:scale-110 transition-transform duration-300" />
@@ -290,7 +320,7 @@ export default function Header({
                   </button>
 
                   <button
-                    onClick={() => scrollToSection('menu-ritual-section')}
+                    onClick={() => handleLandingNav('menu-ritual-section')}
                     className="flex items-center gap-4 text-left group cursor-pointer w-full"
                   >
                     <div className="w-5 h-5 border border-brew-clay flex items-center justify-center font-serif text-xs text-brew-clay group-hover:bg-brew-clay group-hover:text-mist-cream transition-all">
@@ -307,8 +337,26 @@ export default function Header({
                   </button>
 
                   <button
-                    onClick={() => scrollToSection('visit-section')}
-                    className="flex items-center gap-4 text-left group cursor-pointer w-full"
+                    onClick={() => {
+                      onViewChange('member-ritual');
+                      setDrawerOpen(false);
+                    }}
+                    className="flex items-center gap-4 text-left group cursor-pointer w-full bg-transparent border-none"
+                  >
+                    <Award className="w-5 h-5 text-brew-clay group-hover:scale-110 transition-transform duration-300" />
+                    <div>
+                      <span className="font-serif text-xl text-earth-dark group-hover:text-brew-clay transition-colors block">
+                        Member Ritual
+                      </span>
+                      <span className="font-label-caps text-[9px] text-earth-dark/50 tracking-wider">
+                        05 / ACCUMULATED ESSENCE & REWARDS
+                      </span>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => handleLandingNav('visit-section')}
+                    className="flex items-center gap-4 text-left group cursor-pointer w-full bg-transparent border-none"
                   >
                     <MapPin className="w-5 h-5 text-brew-clay group-hover:translate-y-[-2px] transition-transform duration-300" />
                     <div>
@@ -316,7 +364,7 @@ export default function Header({
                         Visit the Atelier
                       </span>
                       <span className="font-label-caps text-[9px] text-earth-dark/50 tracking-wider">
-                        05 / RAJPUR ROAD · DEHRADUN
+                        06 / RAJPUR ROAD · DEHRADUN
                       </span>
                     </div>
                   </button>

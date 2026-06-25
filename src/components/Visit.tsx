@@ -317,19 +317,19 @@ export default function Visit({ onOpenPreOrder }: VisitProps) {
       {/* 4. Integrated Newsletter Subscription (From Reference 1) */}
       <div className="bg-primary text-parchment py-16 px-6 md:px-12 border-t border-earth-dark/5">
         <div className="max-w-3xl mx-auto text-center">
-          <span className="font-sans text-[10px] uppercase font-bold tracking-widest text-brew-clay mb-4 block">
+          <span className="font-sans text-xs uppercase font-bold tracking-[0.25em] text-parchment block mb-4">
             THE CHRONICLES OF PROVENANCE
           </span>
           <h3 className="font-serif text-2xl md:text-4xl text-mist-cream font-medium mb-6">
             Receive the physical & digital journal.
           </h3>
-          <p className="font-sans text-xs text-parchment/60 leading-relaxed mb-10 max-w-lg mx-auto">
+          <p className="font-sans text-sm text-mist-cream/90 leading-relaxed mb-10 max-w-lg mx-auto">
             Subscribe to our bi-monthly circular detailing our single-origin farm partners in Karnataka, Giesen roasting curves, and early reservation links to rare, high-SCA micro-lots.
           </p>
 
           <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 items-end max-w-md mx-auto">
             <div className="flex-grow w-full text-left">
-              <label className="font-sans text-[8px] uppercase tracking-wider font-semibold opacity-60 block mb-2">
+              <label className="font-sans text-[10px] uppercase tracking-widest font-bold text-mist-cream block mb-2">
                 Electronic Mail
               </label>
               <input
@@ -338,18 +338,18 @@ export default function Visit({ onOpenPreOrder }: VisitProps) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="YOUR@EMAIL.COM"
-                className="w-full bg-transparent border-0 border-b border-parchment/35 focus:border-brew-clay focus:ring-0 text-mist-cream font-mono text-xs pb-3 uppercase tracking-wider outline-none"
+                className="w-full bg-transparent border-0 border-b border-parchment/60 focus:border-parchment focus:ring-0 text-mist-cream placeholder:text-parchment/40 font-mono text-sm pb-3 uppercase tracking-wider outline-none"
               />
             </div>
             <button
               type="submit"
-              className="w-full sm:w-auto bg-brew-clay hover:bg-mist-cream hover:text-earth-dark text-mist-cream border-none font-sans font-semibold text-[10px] tracking-[0.15em] px-8 py-3.5 uppercase transition-colors cursor-pointer whitespace-nowrap active:scale-95"
+              className="w-full sm:w-auto bg-brew-clay hover:bg-mist-cream hover:text-earth-dark text-mist-cream border-none font-sans font-bold text-[11px] tracking-[0.15em] px-8 py-3.5 uppercase transition-colors cursor-pointer whitespace-nowrap active:scale-95"
             >
               {subscribed ? 'REGISTERED' : 'SUBSCRIBE'}
             </button>
           </form>
           {subscribed && (
-            <p className="text-[10px] uppercase tracking-wider text-brew-clay font-bold mt-4 animate-pulse">
+            <p className="text-xs uppercase tracking-widest text-parchment font-bold mt-4 animate-pulse">
               SUCCESS / GUEST SPOT RECOGNIZED
             </p>
           )}

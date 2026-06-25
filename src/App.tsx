@@ -17,6 +17,7 @@ import ItemConfiguratorModal from './components/ItemConfiguratorModal';
 import PreOrderModal from './components/PreOrderModal';
 import LoginModal from './components/LoginModal';
 import ChikmagalurSection from './components/ChikmagalurSection';
+import MemberRitual from './components/MemberRitual';
 import { MenuItem, CartItem, UserProfile } from './types';
 import { Coffee, Compass, ArrowUp, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -28,6 +29,7 @@ export default function App() {
   const [isPreOrderOpen, setIsPreOrderOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [view, setView] = useState<'landing' | 'member-ritual'>('landing');
   
   // User Authentication & Presence states
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
@@ -179,39 +181,59 @@ export default function App() {
         userProfile={userProfile}
         onOpenLogin={() => setIsLoginOpen(true)}
         onLogout={handleLogout}
+        view={view}
+        onViewChange={setView}
       />
 
       {/* Main Layout Sections */}
       <main>
-        {/* Cinematic Hero */}
-        <Hero onOpenPreOrder={() => setIsPreOrderOpen(true)} />
+        <AnimatePresence mode="wait">
+          {view === 'landing' ? (
+            <motion.div
+              key="landing-view"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              {/* Cinematic Hero */}
+              <Hero onOpenPreOrder={() => setIsPreOrderOpen(true)} />
 
-        {/* Narrative & Story */}
-        <Provenance />
+              {/* Narrative & Story */}
+              <Provenance />
 
-        {/* Terraced single origin study of Chikmagalur */}
-        <ChikmagalurSection 
-          onAddToCart={handleAddToCart}
-          onOpenPreOrder={() => setIsPreOrderOpen(true)}
-        />
+              {/* Terraced single origin study of Chikmagalur */}
+              <ChikmagalurSection 
+                onAddToCart={handleAddToCart}
+                onOpenPreOrder={() => setIsPreOrderOpen(true)}
+              />
 
-        {/* Step-by-Step Ritual steps in Bento Grid layout */}
-        <RitualBento />
+              {/* Step-by-Step Ritual steps in Bento Grid layout */}
+              <RitualBento />
 
-        {/* Editorial Narrative & Sourcing Journal */}
-        <Journal />
+              {/* Editorial Narrative & Sourcing Journal */}
+              <Journal />
 
-        {/* The Menu list */}
-        <MenuRitual
-          onAddToCart={handleAddToCart}
-          onSelectItem={(item) => setSelectedItem(item)}
-        />
+              {/* The Menu list */}
+              <MenuRitual
+                onAddToCart={handleAddToCart}
+                onSelectItem={(item) => setSelectedItem(item)}
+              />
 
-        {/* Technical current lot specification details */}
-        <LotMeta />
+              {/* Technical current lot specification details */}
+              <LotMeta />
 
-        {/* Operating hours, maps & newsletter subscription */}
-        <Visit onOpenPreOrder={() => setIsPreOrderOpen(true)} />
+              {/* Operating hours, maps & newsletter subscription */}
+              <Visit onOpenPreOrder={() => setIsPreOrderOpen(true)} />
+            </motion.div>
+          ) : (
+            <MemberRitual
+              userProfile={userProfile}
+              onOpenLogin={() => setIsLoginOpen(true)}
+              onOpenPreOrder={() => setIsPreOrderOpen(true)}
+            />
+          )}
+        </AnimatePresence>
       </main>
 
       {/* Aesthetic Footer */}
