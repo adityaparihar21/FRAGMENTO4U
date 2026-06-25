@@ -42,6 +42,10 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
   const [currentOrder, setCurrentOrder] = useState<PreOrder | null>(null);
   const [orderHistory, setOrderHistory] = useState<PreOrder[]>([]);
 
+  // Brewing Animation states
+  const [brewingProgress, setBrewingProgress] = useState(0);
+  const [brewingPhase, setBrewingPhase] = useState<'grinding' | 'blooming' | 'extracting' | 'swirling' | 'done'>('grinding');
+
   // Calculate pricing
   const isCartActive = cartItems.length > 0;
   const cartSubtotal = cartItems.reduce((acc, item) => acc + item.menuItem.price * item.quantity, 0);
@@ -58,6 +62,42 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
       }
     }
   }, []);
+
+  // Timer loop for the coffee brewing animation
+  useEffect(() => {
+    if (step === 5) {
+      setBrewingProgress(0);
+      setBrewingPhase('grinding');
+      
+      const interval = setInterval(() => {
+        setBrewingProgress((prev) => {
+          const next = prev + 1;
+          if (next >= 100) {
+            clearInterval(interval);
+            // Wait a moment at 100% and then automatically advance to step 6 (Receipt Screen)
+            setTimeout(() => {
+              setStep(6);
+            }, 1000);
+            return 100;
+          }
+          
+          if (next < 25) {
+            setBrewingPhase('grinding');
+          } else if (next < 50) {
+            setBrewingPhase('blooming');
+          } else if (next < 85) {
+            setBrewingPhase('extracting');
+          } else {
+            setBrewingPhase('swirling');
+          }
+          
+          return next;
+        });
+      }, 55); // 55ms * 100 = ~5.5s duration
+      
+      return () => clearInterval(interval);
+    }
+  }, [step]);
 
   // Update Lot details dynamically based on selected Lot in Step 2
   const updateLotDetails = (lot: string) => {
@@ -146,6 +186,8 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
     setCardNumber('');
     setCardExpiry('');
     setCardCvv('');
+    setBrewingProgress(0);
+    setBrewingPhase('grinding');
     setStep(1);
     onClose();
   };
@@ -178,7 +220,7 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
                 CONCIERGE EXPERIENCE
               </span>
               <h3 className="font-serif text-2xl md:text-3xl text-earth-dark font-medium leading-none">
-                {step === 5 ? 'Ritual Prepared' : 'Pre-order Ritual'}
+                {step === 6 ? 'Ritual Prepared' : step === 5 ? 'Atelier Extraction' : 'Pre-order Ritual'}
               </h3>
             </div>
             
@@ -786,8 +828,216 @@ export default function PreOrderModal({ isOpen, onClose, cartItems, onClearCart 
               </motion.div>
             )}
 
-            {/* Step 5: Success Receipt Panel (From Reference 1 & 2) */}
+            {/* Step 5: Coffee Brewing Animation Step */}
             {step === 5 && currentOrder && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex flex-col items-center py-6 text-center select-none"
+              >
+                {/* Immersive Audio visual indicator */}
+                <div className="mb-4">
+                  <span className="font-sans text-[10px] uppercase font-bold text-brew-clay tracking-[0.25em]">
+                    Atelier Brewing Queue Active
+                  </span>
+                </div>
+
+                <h4 className="font-serif text-2xl md:text-3xl text-earth-dark font-medium mb-1">
+                  Extracting Your Ritual...
+                </h4>
+                <p className="font-sans text-xs text-on-surface-variant max-w-md mx-auto mb-6">
+                  Our roasters are active. Your order is secured and the extraction has begun.
+                </p>
+
+                {/* GORGEOUS Minimalist SVG Coffee Brewer */}
+                <div className="relative w-48 h-60 flex items-center justify-center bg-parchment/15 border border-earth-dark/10 p-4 mb-6 shadow-sm rounded-none">
+                  {/* Digital active clock display at bottom/top */}
+                  <div className="absolute top-2.5 right-3 font-mono text-[9px] text-brew-clay font-bold tracking-wider">
+                    {brewingProgress}%
+                  </div>
+                  <div className="absolute top-2.5 left-3 font-mono text-[8px] text-earth-dark/50 tracking-wider">
+                    EST_FLOW_93.5°C
+                  </div>
+
+                  <svg width="180" height="220" viewBox="0 0 180 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <style>{`
+                      @keyframes flow-water {
+                        to {
+                          stroke-dashoffset: -20;
+                        }
+                      }
+                      @keyframes drip-drop {
+                        0% {
+                          transform: translateY(0) scale(1);
+                          opacity: 0;
+                        }
+                        15% {
+                          opacity: 1;
+                        }
+                        85% {
+                          transform: translateY(44px) scale(0.9);
+                          opacity: 1;
+                        }
+                        100% {
+                          transform: translateY(48px) scale(0.3);
+                          opacity: 0;
+                        }
+                      }
+                      @keyframes gentle-steam {
+                        0% {
+                          stroke-dashoffset: 0;
+                          opacity: 0;
+                        }
+                        25% {
+                          opacity: 0.35;
+                        }
+                        75% {
+                          opacity: 0.35;
+                        }
+                        100% {
+                          stroke-dashoffset: -16;
+                          opacity: 0;
+                        }
+                      }
+                      @keyframes coffee-pulse {
+                        0%, 100% { transform: scale(1); }
+                        50% { transform: scale(1.05); }
+                      }
+                      .anim-water-flow {
+                        animation: flow-water 1.2s linear infinite;
+                      }
+                      .anim-drop-1 {
+                        animation: drip-drop 1.5s infinite cubic-bezier(0.4, 0.4, 0.7, 0.4);
+                      }
+                      .anim-drop-2 {
+                        animation: drip-drop 1.5s infinite cubic-bezier(0.4, 0.4, 0.7, 0.4);
+                        animation-delay: 0.75s;
+                      }
+                      .anim-steam-1 {
+                        animation: gentle-steam 3s linear infinite;
+                        stroke-dasharray: 6, 6;
+                      }
+                      .anim-steam-2 {
+                        animation: gentle-steam 3.8s linear infinite;
+                        animation-delay: 1.2s;
+                        stroke-dasharray: 6, 6;
+                      }
+                      .anim-pulse-bed {
+                        transform-origin: 90px 115px;
+                        animation: coffee-pulse 4s ease-in-out infinite;
+                      }
+                    `}</style>
+
+                    <defs>
+                      {/* Carafe Container Definition */}
+                      <path id="server-interior-shape" d="M 76,168 L 104,168 L 115,212 H 65 Z" />
+                      <clipPath id="server-interior-clip">
+                        <use href="#server-interior-shape" />
+                      </clipPath>
+                    </defs>
+
+                    {/* 1. STEAM LINES (Rising above the filter) */}
+                    <path d="M 82,90 Q 77,75 84,65 T 79,48" fill="none" stroke="#2B2623" strokeWidth="1.2" strokeLinecap="round" className="anim-steam-1" />
+                    <path d="M 98,90 Q 103,75 96,65 T 101,48" fill="none" stroke="#2B2623" strokeWidth="1.2" strokeLinecap="round" className="anim-steam-2" />
+
+                    {/* 2. GOOSENECK KETTLE SPOUT (Top left to center-pour) */}
+                    <path d="M 20,38 H 82 Q 90,38 90,52" fill="none" stroke="#2B2623" strokeWidth="3.5" strokeLinecap="round" />
+                    {/* Tiny tip detail on spout */}
+                    <circle cx="90" cy="52" r="1.5" fill="#C16646" />
+
+                    {/* 3. WATER STREAM (Pouring down into center of coffee bed) */}
+                    {brewingProgress > 15 && brewingProgress < 90 && (
+                      <line x1="90" y1="52" x2="90" y2="108" stroke="#A5D8F3" strokeWidth="1.8" strokeDasharray="5,5" className="anim-water-flow" strokeLinecap="round" />
+                    )}
+
+                    {/* 4. THE V60 DRIPPER CONE & FILTER */}
+                    {/* Glass outline of V60 */}
+                    <polygon points="56,100 124,100 102,144 78,144" fill="none" stroke="#2B2623" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    {/* Paper Filter inside */}
+                    <polygon points="61,102 119,102 100,142 80,142" fill="#E8D9C5" opacity="0.5" />
+                    {/* Coffee Grounds Bed inside paper filter */}
+                    {brewingProgress > 10 && (
+                      <ellipse cx="90" cy="115" rx="19" ry="7" fill="#422F25" className="anim-pulse-bed" />
+                    )}
+
+                    {/* 5. DRIPPING COFFEE DROPS (Falling from the dripper outlet into the server) */}
+                    {brewingProgress > 22 && brewingProgress < 95 && (
+                      <>
+                        <g className="anim-drop-1">
+                          <circle cx="90" cy="144" r="2.2" fill="#C16646" />
+                        </g>
+                        <g className="anim-drop-2">
+                          <circle cx="90" cy="144" r="2.2" fill="#C16646" />
+                        </g>
+                      </>
+                    )}
+
+                    {/* 6. GLASS CARAFE SERVER (Bottom container) */}
+                    {/* Handle details on the left */}
+                    <path d="M 64,175 H 48 V 205 H 64" fill="none" stroke="#2B2623" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    {/* Carafe Body Outer Ring */}
+                    <path d="M 68,165 H 78 V 160 H 102 V 165 H 112 L 123,214 A 2,2 0 0 1 121,216 H 59 A 2,2 0 0 1 57,214 Z" fill="none" stroke="#2B2623" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+
+                    {/* RISING COFFEE LIQUID (Clipped perfectly within the interior shape of carafe) */}
+                    <g clipPath="url(#server-interior-clip)">
+                      {/* Rich amber/brown coffee rectangle rising */}
+                      <rect 
+                        x="40" 
+                        y={215 - (brewingProgress / 100) * 44} 
+                        width="100" 
+                        height="50" 
+                        fill="#C16646" 
+                        opacity="0.88" 
+                      />
+                      {/* Dark coffee foam layer on top of liquid */}
+                      {brewingProgress > 5 && (
+                        <ellipse 
+                          cx="90" 
+                          cy={215 - (brewingProgress / 100) * 44} 
+                          rx="30" 
+                          ry="2.5" 
+                          fill="#E8D9C5" 
+                          opacity="0.6" 
+                        />
+                      )}
+                    </g>
+                  </svg>
+                </div>
+
+                {/* Status Narrative Logs */}
+                <div className="w-full max-w-sm bg-parchment/10 border border-earth-dark/10 p-4 rounded-none min-h-[76px] flex flex-col justify-center mb-6">
+                  <span className="font-mono text-[9px] text-brew-clay font-bold tracking-widest uppercase mb-1.5 block">
+                    {brewingPhase === 'grinding' && 'PHASE 1: ATELIER GRIND'}
+                    {brewingPhase === 'blooming' && 'PHASE 2: HYDRO-BLOOM'}
+                    {brewingPhase === 'extracting' && 'PHASE 3: ARTISANAL EXTRACT'}
+                    {brewingPhase === 'swirling' && 'PHASE 4: CARAFE SWIRL & POUR'}
+                    {brewingPhase === 'done' && 'EXTRACTION COMPLETED'}
+                  </span>
+                  <p className="font-sans text-xs text-earth-dark font-medium leading-relaxed">
+                    {brewingPhase === 'grinding' && `Grinding organic ${selectedLot} beans to medium-coarse (28 clicks) for optimal extraction clarity...`}
+                    {brewingPhase === 'blooming' && `Saturating ground bed with 50ml hot water at 93.5°C to release locked-in CO₂ gases (the bloom)...`}
+                    {brewingPhase === 'extracting' && `Initiating concentric spirals with water. Extracting sweet oils and dynamic ${selectedLot} terroir brightness...`}
+                    {brewingPhase === 'swirling' && `Filter drawdown complete. Aerating your fresh brew to disperse fragrant fruit and chocolate aromatics...`}
+                    {brewingPhase === 'done' && `Order authenticated. Logging your receipt and secure pickup code: ${currentOrder.id}...`}
+                  </p>
+                </div>
+
+                {/* Progress bar */}
+                <div className="w-full max-w-xs bg-earth-dark/10 h-1.5 relative rounded-none mb-2 overflow-hidden">
+                  <div 
+                    className="bg-brew-clay h-full transition-all duration-100 ease-out"
+                    style={{ width: `${brewingProgress}%` }}
+                  />
+                </div>
+                <div className="text-[10px] font-mono text-on-surface-variant/70 tracking-widest uppercase">
+                  {brewingProgress}% COMPLETED
+                </div>
+              </motion.div>
+            )}
+
+            {/* Step 6: Success Receipt Panel (From Reference 1 & 2) */}
+            {step === 6 && currentOrder && (
               <motion.div 
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
