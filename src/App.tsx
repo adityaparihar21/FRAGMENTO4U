@@ -19,7 +19,6 @@ import PreOrderModal from './components/PreOrderModal';
 import LoginModal from './components/LoginModal';
 import ChikmagalurSection from './components/ChikmagalurSection';
 import MemberRitual from './components/MemberRitual';
-import SensoryProfiler from './components/SensoryProfiler';
 import { MenuItem, CartItem, UserProfile } from './types';
 import { Coffee, Compass, ArrowUp, Heart, X, ArrowRight, BookOpen, Award, Leaf } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -395,10 +394,7 @@ export default function App() {
                       </div>
                     </div>
                   </section>
-                  <SensoryProfiler 
-                    onAddToCart={handleAddToCart}
-                    onOpenCart={() => setIsCartOpen(true)}
-                  />
+
                 </>
               ) : (
                 <div className="pt-[72px]">
@@ -678,26 +674,6 @@ export default function App() {
               }`}
             >
               Menu
-            </button>
-
-            <span className="h-3 w-[1px] bg-parchment/10" />
-
-            <button
-              onClick={() => {
-                if (activePage !== null) {
-                  setActivePage(null);
-                  setTimeout(() => {
-                    const el = document.getElementById('sensory-profiler-section');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }, 100);
-                } else {
-                  const el = document.getElementById('sensory-profiler-section');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-              className="font-sans text-[10px] sm:text-[11px] font-bold tracking-[0.12em] sm:tracking-[0.18em] uppercase transition-colors duration-200 cursor-pointer border-none bg-transparent text-mist-cream/80 hover:text-brew-clay whitespace-nowrap"
-            >
-              Profiler
             </button>
 
             <span className="h-3 w-[1px] bg-parchment/10" />

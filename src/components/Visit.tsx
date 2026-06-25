@@ -16,10 +16,7 @@ export default function Visit({ onOpenPreOrder }: VisitProps) {
   const [isPlaying, setIsPlaying] = useState<string | null>(null);
   const [pulseWidth, setPulseWidth] = useState(35); // Meditative atmosphere default is 35%
 
-  const audioCtxRef = React.useRef<AudioContext | null>(null);
-  const gainNodeRef = React.useRef<GainNode | null>(null);
-  const intervalRef = React.useRef<any>(null);
-  const droneOscsRef = React.useRef<OscillatorNode[]>([]);
+  const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
   const playlist = [
     { id: 'pink-white', title: 'Pink + White — Frank Ocean', genre: 'NEO-SOUL / VIBE • 03:04' },
@@ -46,85 +43,18 @@ export default function Visit({ onOpenPreOrder }: VisitProps) {
   }, []);
 
   useEffect(() => {
-    if (isPlaying) {
-      if (!audioCtxRef.current) {
-        audioCtxRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-      }
-      const ctx = audioCtxRef.current;
-      if (ctx.state === 'suspended') ctx.resume();
-
-      if (intervalRef.current) clearInterval(intervalRef.current);
-      droneOscsRef.current.forEach(osc => { try { osc.stop(); } catch(e){} });
-      droneOscsRef.current = [];
-
-      const masterGain = ctx.createGain();
-      masterGain.gain.setValueAtTime(0, ctx.currentTime);
-      masterGain.gain.linearRampToValueAtTime(0.02, ctx.currentTime + 1.5);
-      masterGain.connect(ctx.destination);
-      gainNodeRef.current = masterGain;
-
-      // Track-specific vibes based on index
-      const trackIndex = playlist.findIndex(t => t.id === isPlaying);
-      const baseFreq = 130 + (trackIndex * 15);
-      
-      // Drone
-      [baseFreq, baseFreq * 1.5].forEach(f => {
-        const osc = ctx.createOscillator();
-        osc.type = trackIndex % 2 === 0 ? 'sine' : 'triangle';
-        osc.frequency.setValueAtTime(f, ctx.currentTime);
-        osc.connect(masterGain);
-        osc.start();
-        droneOscsRef.current.push(osc);
-      });
-
-      // Procedural Melody
-      const scale = [baseFreq, baseFreq * 1.125, baseFreq * 1.25, baseFreq * 1.5, baseFreq * 1.666]; // Pentatonic relative
-      
-      intervalRef.current = setInterval(() => {
-        if (!audioCtxRef.current) return;
-        const noteCtx = audioCtxRef.current;
-        const noteFreq = scale[Math.floor(Math.random() * scale.length)];
-        
-        const noteOsc = noteCtx.createOscillator();
-        const noteGain = noteCtx.createGain();
-        
-        noteOsc.type = 'sine';
-        noteOsc.frequency.setValueAtTime(noteFreq * (Math.random() > 0.6 ? 2 : 1), noteCtx.currentTime);
-        
-        noteGain.gain.setValueAtTime(0, noteCtx.currentTime);
-        noteGain.gain.linearRampToValueAtTime(0.06, noteCtx.currentTime + 0.1);
-        noteGain.gain.exponentialRampToValueAtTime(0.001, noteCtx.currentTime + 2.5);
-        
-        noteOsc.connect(noteGain);
-        noteGain.connect(gainNodeRef.current!);
-        
-        noteOsc.start();
-        noteOsc.stop(noteCtx.currentTime + 2.5);
-      }, 900);
-
-    } else {
-      // Stop playing
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-      if (gainNodeRef.current && audioCtxRef.current) {
-        const ctx = audioCtxRef.current;
-        const gain = gainNodeRef.current;
-        try {
-          gain.gain.setValueAtTime(gain.gain.value, ctx.currentTime);
-          gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.5);
-          setTimeout(() => {
-            droneOscsRef.current.forEach(osc => { try { osc.stop(); } catch(e){} });
-            droneOscsRef.current = [];
-          }, 600);
-        } catch(e) {}
-      }
+    if (!audioRef.current) {
+      audioRef.current = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3');
+      audioRef.current.loop = true;
     }
+  }, []);
 
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
+  useEffect(() => {
+    if (isPlaying && audioRef.current) {
+      audioRef.current.play().catch(e => console.warn("Audio playback failed:", e));
+    } else if (audioRef.current) {
+      audioRef.current.pause();
+    }
   }, [isPlaying]);
 
   const handleSubscribe = (e: React.FormEvent) => {

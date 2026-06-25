@@ -35,117 +35,33 @@ export default function Journal() {
 
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [trackProgress, setTrackProgress] = useState(25);
-  const [elapsedSeconds, setElapsedSeconds] = useState(81);
-  const [isAudioMuted, setIsAudioMuted] = useState(true);
+  const [trackProgress, setTrackProgress] = useState(0);
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const [isAudioMuted, setIsAudioMuted] = useState(false);
 
-  const audioContextRef = React.useRef<AudioContext | null>(null);
-  const oscillatorsRef = React.useRef<OscillatorNode[]>([]);
-  const gainNodeRef = React.useRef<GainNode | null>(null);
-
-  const intervalRef = React.useRef<any>(null);
-
-  const startDrone = () => {
-    if (isAudioMuted) return;
-    try {
-      if (!audioContextRef.current) {
-        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-      }
-      const ctx = audioContextRef.current;
-      if (ctx.state === 'suspended') {
-        ctx.resume();
-      }
-
-      oscillatorsRef.current.forEach(osc => { try { osc.stop(); } catch(e){} });
-      oscillatorsRef.current = [];
-      if (intervalRef.current) clearInterval(intervalRef.current);
-
-      const gain = ctx.createGain();
-      gain.gain.setValueAtTime(0, ctx.currentTime);
-      gain.gain.linearRampToValueAtTime(0.015, ctx.currentTime + 1.5);
-      gain.connect(ctx.destination);
-      gainNodeRef.current = gain;
-
-      // Base drone
-      const freqs = [110, 165];
-      freqs.forEach((f) => {
-        const osc = ctx.createOscillator();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(f, ctx.currentTime);
-        osc.connect(gain);
-        osc.start();
-        oscillatorsRef.current.push(osc);
-      });
-
-      // Procedural Melody Generator based on track index
-      const scales = [
-        [220, 246.94, 277.18, 329.63, 369.99], // A Major pentatonic (Track 1)
-        [261.63, 293.66, 329.63, 392.00, 440.00], // C Major pentatonic (Track 2)
-        [196.00, 220.00, 246.94, 293.66, 329.63], // G Major pentatonic (Track 3)
-        [246.94, 277.18, 311.13, 369.99, 415.30]  // B Major pentatonic (Track 4)
-      ];
-      
-      const currentScale = scales[currentTrackIndex % scales.length];
-
-      intervalRef.current = setInterval(() => {
-        if (!audioContextRef.current) return;
-        const noteCtx = audioContextRef.current;
-        
-        // Random note from scale
-        const noteFreq = currentScale[Math.floor(Math.random() * currentScale.length)];
-        
-        const noteOsc = noteCtx.createOscillator();
-        const noteGain = noteCtx.createGain();
-        
-        noteOsc.type = 'sine';
-        noteOsc.frequency.setValueAtTime(noteFreq * (Math.random() > 0.5 ? 2 : 1), noteCtx.currentTime); // Sometimes an octave higher
-        
-        // Envelope
-        noteGain.gain.setValueAtTime(0, noteCtx.currentTime);
-        noteGain.gain.linearRampToValueAtTime(0.05, noteCtx.currentTime + 0.1);
-        noteGain.gain.exponentialRampToValueAtTime(0.001, noteCtx.currentTime + 3);
-        
-        noteOsc.connect(noteGain);
-        noteGain.connect(gainNodeRef.current!);
-        
-        noteOsc.start();
-        noteOsc.stop(noteCtx.currentTime + 3);
-      }, 800); // play a note every 800ms
-
-    } catch (e) {
-      console.warn("Web Audio failed:", e);
-    }
-  };
-
-  const stopDrone = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-    if (gainNodeRef.current && audioContextRef.current) {
-      const ctx = audioContextRef.current;
-      const gain = gainNodeRef.current;
-      try {
-        gain.gain.setValueAtTime(gain.gain.value, ctx.currentTime);
-        gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.4);
-        setTimeout(() => {
-          oscillatorsRef.current.forEach(osc => { try { osc.stop(); } catch(e){} });
-          oscillatorsRef.current = [];
-        }, 500);
-      } catch(e) {}
-    }
-  };
+  const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
   React.useEffect(() => {
-    if (isPlaying && !isAudioMuted) {
-      startDrone();
-    } else {
-      stopDrone();
+    // Create audio element for real playback
+    if (!audioRef.current) {
+      audioRef.current = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3');
+      audioRef.current.loop = true;
     }
-    return () => {
-      stopDrone();
-    };
-  }, [isPlaying, isAudioMuted, currentTrackIndex]);
+  }, []);
+
+  React.useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.muted = isAudioMuted;
+    }
+  }, [isAudioMuted]);
+
+  React.useEffect(() => {
+    if (isPlaying && audioRef.current) {
+      audioRef.current.play().catch(e => console.warn("Audio playback failed:", e));
+    } else if (audioRef.current) {
+      audioRef.current.pause();
+    }
+  }, [isPlaying]);
 
   React.useEffect(() => {
     let interval: any = null;
