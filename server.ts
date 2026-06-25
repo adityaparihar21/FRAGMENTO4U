@@ -41,7 +41,7 @@ app.post("/api/sensory-profile", async (req, res) => {
     `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: "gemini-2.5-flash",
       contents: prompt,
       config: {
         systemInstruction: "You are an elite sensory architect and specialty coffee sommelier for 'Fragmento Cafe & Sensory Atelier' on Rajpur Road, Dehradun. You craft hyper-curated, bespoke specialty coffee sensory profiles, precise roasting specifications, and precise pour-over brewing steps. Your tone is poetic, refined, scientific, and highly intentional. Avoid promotional marketing clichés.",
