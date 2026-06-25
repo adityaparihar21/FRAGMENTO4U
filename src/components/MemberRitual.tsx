@@ -107,6 +107,50 @@ export default function MemberRitual({ userProfile, onOpenLogin, onOpenPreOrder 
   const currentUserName = userProfile?.isLoggedIn ? userProfile.name : 'Guest Contemplator';
   const displayPoints = userProfile?.isLoggedIn ? points : 1240;
 
+  if (!userProfile?.isLoggedIn) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.6 }}
+        className="min-h-[70vh] flex items-center justify-center pt-28 pb-36 px-6"
+      >
+        <div className="bg-parchment/10 border border-earth-dark/15 p-10 md:p-16 shadow-lg max-w-xl w-full relative overflow-hidden text-earth-dark text-center">
+          {/* Decorative elements */}
+          <div className="absolute top-0 left-0 right-0 h-[3px] bg-brew-clay" />
+          <div className="flex justify-center mb-6">
+            <div className="relative p-5 bg-parchment/10 border border-earth-dark/10 rounded-none text-brew-clay">
+              <Sparkles className="w-8 h-8 animate-pulse" />
+            </div>
+          </div>
+
+          <span className="font-sans text-[10px] uppercase font-bold tracking-[0.25em] text-brew-clay mb-3 block">
+            THE ATELIER REGISTRY
+          </span>
+          <h1 className="font-serif text-3xl md:text-4xl font-medium tracking-tight mb-4 text-earth-dark">
+            Exclusive Member Ritual
+          </h1>
+          <p className="font-sans text-sm text-earth-dark/70 leading-relaxed mb-8 max-w-md mx-auto">
+            The Fragmento Member room is reserved for our community of specialty coffee appreciators. Create a guest pass or log in with any phone number & OTP to view accumulated essence, track rewards, and explore private blends.
+          </p>
+
+          <button
+            onClick={onOpenLogin}
+            className="w-full bg-brew-clay text-mist-cream font-sans text-xs font-bold tracking-widest uppercase px-8 py-4 hover:bg-earth-dark transition-colors duration-300 flex items-center justify-center gap-2 border-none cursor-pointer"
+          >
+            LOG IN / REGISTER <ArrowRight className="w-4 h-4" />
+          </button>
+
+          {/* Background subtle marks */}
+          <div className="absolute -bottom-10 -right-10 text-[120px] text-earth-dark/[0.02] select-none pointer-events-none">
+            <Coffee className="w-32 h-32 stroke-[0.3]" />
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}

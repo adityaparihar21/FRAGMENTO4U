@@ -20,7 +20,7 @@ import LoginModal from './components/LoginModal';
 import ChikmagalurSection from './components/ChikmagalurSection';
 import MemberRitual from './components/MemberRitual';
 import { MenuItem, CartItem, UserProfile } from './types';
-import { Coffee, Compass, ArrowUp, Heart } from 'lucide-react';
+import { Coffee, Compass, ArrowUp, Heart, X, ArrowRight, BookOpen, Award, Leaf } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
@@ -31,6 +31,7 @@ export default function App() {
   const [activeSection, setActiveSection] = useState('hero');
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [view, setView] = useState<'landing' | 'member-ritual'>('landing');
+  const [activePage, setActivePage] = useState<string | null>(null);
   
   // User Authentication & Presence states
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
@@ -56,6 +57,8 @@ export default function App() {
   const handleLogout = () => {
     setUserProfile(null);
     localStorage.removeItem('fragmento_user');
+    setView('landing');
+    setActivePage(null);
   };
 
 
@@ -185,6 +188,8 @@ export default function App() {
         onLogout={handleLogout}
         view={view}
         onViewChange={setView}
+        activePage={activePage}
+        onActivePageChange={setActivePage}
       />
 
       {/* Main Layout Sections */}
@@ -192,44 +197,260 @@ export default function App() {
         <AnimatePresence mode="wait">
           {view === 'landing' ? (
             <motion.div
-              key="landing-view"
+              key={activePage ? `page-${activePage}` : "landing-view"}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }}
             >
-              {/* Cinematic Hero */}
-              <Hero onOpenPreOrder={() => setIsPreOrderOpen(true)} />
+              {activePage === null ? (
+                <>
+                  {/* Cinematic Hero */}
+                  <Hero onOpenPreOrder={() => setIsPreOrderOpen(true)} />
 
-              {/* Narrative & Story */}
-              <Provenance />
+                  {/* Summary Columns Layout (Atelier Chapters) */}
+                  <section className="py-24 px-6 md:px-12 max-w-6xl mx-auto">
+                    <div className="text-center max-w-2xl mx-auto mb-16">
+                      <span className="font-sans text-[10px] uppercase font-bold tracking-[0.25em] text-brew-clay block mb-3">
+                        EXPLORE THE ATELIER
+                      </span>
+                      <h2 className="font-serif text-3xl md:text-5xl font-medium text-earth-dark tracking-tight mb-4">
+                        The Seven Chapters
+                      </h2>
+                      <p className="font-serif text-sm italic text-earth-dark/70 leading-relaxed">
+                        Click to enter each specific narrative stream, seasonal specification or our private community room.
+                      </p>
+                    </div>
 
-              {/* Our Story Chapter-by-Chapter Sourcing, Selection, Roasting & Service */}
-              <OurStory />
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                      {/* Chapter 1: Our Philosophy */}
+                      <div className="bg-parchment/10 border border-earth-dark/15 p-8 flex flex-col justify-between hover:shadow-lg transition-all duration-300 relative group min-h-[320px] text-earth-dark">
+                        <div className="absolute top-0 left-0 right-0 h-[3px] bg-brew-clay/20 group-hover:bg-brew-clay transition-colors" />
+                        <div>
+                          <div className="flex justify-between items-start mb-6">
+                            <span className="font-mono text-xs text-earth-dark/40 font-bold">CHAPTER 01</span>
+                            <Compass className="w-5 h-5 text-brew-clay group-hover:rotate-45 transition-transform duration-500" />
+                          </div>
+                          <h3 className="font-serif text-2xl font-medium mb-3">Our Philosophy</h3>
+                          <p className="font-sans text-xs text-earth-dark/70 leading-relaxed mb-6">
+                            The narrative of direct trade micro-lots and small-batch roasting. Deeply committed to the terroir of Indian coffee.
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => {
+                            setActivePage('provenance');
+                            window.scrollTo({ top: 0, behavior: 'instant' });
+                          }}
+                          className="flex items-center gap-2 font-sans text-[10px] font-bold tracking-widest uppercase hover:text-brew-clay transition-colors mt-auto text-left border-none bg-transparent cursor-pointer"
+                        >
+                          READ PHILOSOPHY <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                      </div>
 
-              {/* Terraced single origin study of Chikmagalur */}
-              <ChikmagalurSection 
-                onAddToCart={handleAddToCart}
-                onOpenPreOrder={() => setIsPreOrderOpen(true)}
-              />
+                      {/* Chapter 2: Our Story */}
+                      <div className="bg-parchment/10 border border-earth-dark/15 p-8 flex flex-col justify-between hover:shadow-lg transition-all duration-300 relative group min-h-[320px] text-earth-dark">
+                        <div className="absolute top-0 left-0 right-0 h-[3px] bg-brew-clay/20 group-hover:bg-brew-clay transition-colors" />
+                        <div>
+                          <div className="flex justify-between items-start mb-6">
+                            <span className="font-mono text-xs text-earth-dark/40 font-bold">CHAPTER 02</span>
+                            <Award className="w-5 h-5 text-brew-clay group-hover:scale-110 transition-transform duration-500" />
+                          </div>
+                          <h3 className="font-serif text-2xl font-medium mb-3">Our Story</h3>
+                          <p className="font-sans text-xs text-earth-dark/70 leading-relaxed mb-6">
+                            A chapter-by-chapter chronicle of patience, micro-lot roasting profiles, and our Dehradun artisan bakery.
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => {
+                            setActivePage('story');
+                            window.scrollTo({ top: 0, behavior: 'instant' });
+                          }}
+                          className="flex items-center gap-2 font-sans text-[10px] font-bold tracking-widest uppercase hover:text-brew-clay transition-colors mt-auto text-left border-none bg-transparent cursor-pointer"
+                        >
+                          ENTER STORY <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                      </div>
 
-              {/* Step-by-Step Ritual steps in Bento Grid layout */}
-              <RitualBento />
+                      {/* Chapter 3: Chikmagalur Terraces */}
+                      <div className="bg-parchment/10 border border-earth-dark/15 p-8 flex flex-col justify-between hover:shadow-lg transition-all duration-300 relative group min-h-[320px] text-earth-dark">
+                        <div className="absolute top-0 left-0 right-0 h-[3px] bg-brew-clay/20 group-hover:bg-brew-clay transition-colors" />
+                        <div>
+                          <div className="flex justify-between items-start mb-6">
+                            <span className="font-mono text-xs text-earth-dark/40 font-bold">CHAPTER 03</span>
+                            <Leaf className="w-5 h-5 text-brew-clay group-hover:scale-110 transition-transform duration-500" />
+                          </div>
+                          <h3 className="font-serif text-2xl font-medium mb-3">Chikmagalur Terraces</h3>
+                          <p className="font-sans text-xs text-earth-dark/70 leading-relaxed mb-6">
+                            Terraced single-origin study of Indian soil and monsoon shade-growth. Hand-picked cherries at maximum density.
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => {
+                            setActivePage('chikmagalur');
+                            window.scrollTo({ top: 0, behavior: 'instant' });
+                          }}
+                          className="flex items-center gap-2 font-sans text-[10px] font-bold tracking-widest uppercase hover:text-brew-clay transition-colors mt-auto text-left border-none bg-transparent cursor-pointer"
+                        >
+                          EXPLORE TERRACES <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                      </div>
 
-              {/* Editorial Narrative & Sourcing Journal */}
-              <Journal />
+                      {/* Chapter 4: The Process */}
+                      <div className="bg-parchment/10 border border-earth-dark/15 p-8 flex flex-col justify-between hover:shadow-lg transition-all duration-300 relative group min-h-[320px] text-earth-dark">
+                        <div className="absolute top-0 left-0 right-0 h-[3px] bg-brew-clay/20 group-hover:bg-brew-clay transition-colors" />
+                        <div>
+                          <div className="flex justify-between items-start mb-6">
+                            <span className="font-mono text-xs text-earth-dark/40 font-bold">CHAPTER 04</span>
+                            <Coffee className="w-5 h-5 text-brew-clay group-hover:scale-110 transition-transform duration-500" />
+                          </div>
+                          <h3 className="font-serif text-2xl font-medium mb-3">The Process</h3>
+                          <p className="font-sans text-xs text-earth-dark/70 leading-relaxed mb-6">
+                            The small-batch ritual of roasting, water chemistry adjustment, and temperature profiling.
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => {
+                            setActivePage('ritual');
+                            window.scrollTo({ top: 0, behavior: 'instant' });
+                          }}
+                          className="flex items-center gap-2 font-sans text-[10px] font-bold tracking-widest uppercase hover:text-brew-clay transition-colors mt-auto text-left border-none bg-transparent cursor-pointer"
+                        >
+                          VIEW PROCESS <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                      </div>
 
-              {/* The Menu list */}
-              <MenuRitual
-                onAddToCart={handleAddToCart}
-                onSelectItem={(item) => setSelectedItem(item)}
-              />
+                      {/* Chapter 5: Sourcing Journal */}
+                      <div className="bg-parchment/10 border border-earth-dark/15 p-8 flex flex-col justify-between hover:shadow-lg transition-all duration-300 relative group min-h-[320px] text-earth-dark">
+                        <div className="absolute top-0 left-0 right-0 h-[3px] bg-brew-clay/20 group-hover:bg-brew-clay transition-colors" />
+                        <div>
+                          <div className="flex justify-between items-start mb-6">
+                            <span className="font-mono text-xs text-earth-dark/40 font-bold">CHAPTER 05</span>
+                            <BookOpen className="w-5 h-5 text-brew-clay group-hover:scale-110 transition-transform duration-500" />
+                          </div>
+                          <h3 className="font-serif text-2xl font-medium mb-3">Sourcing Journal</h3>
+                          <p className="font-sans text-xs text-earth-dark/70 leading-relaxed mb-6">
+                            Editorial chronicles of origin trips, technical roasting profiles, and newsletters from the roastery.
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => {
+                            setActivePage('journal');
+                            window.scrollTo({ top: 0, behavior: 'instant' });
+                          }}
+                          className="flex items-center gap-2 font-sans text-[10px] font-bold tracking-widest uppercase hover:text-brew-clay transition-colors mt-auto text-left border-none bg-transparent cursor-pointer"
+                        >
+                          READ JOURNAL <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                      </div>
 
-              {/* Technical current lot specification details */}
-              <LotMeta />
+                      {/* Chapter 6: The Menu Ritual */}
+                      <div className="bg-parchment/10 border border-earth-dark/15 p-8 flex flex-col justify-between hover:shadow-lg transition-all duration-300 relative group min-h-[320px] text-earth-dark">
+                        <div className="absolute top-0 left-0 right-0 h-[3px] bg-brew-clay/20 group-hover:bg-brew-clay transition-colors" />
+                        <div>
+                          <div className="flex justify-between items-start mb-6">
+                            <span className="font-mono text-xs text-earth-dark/40 font-bold">CHAPTER 06</span>
+                            <div className="w-5 h-5 border border-brew-clay flex items-center justify-center font-serif text-[10px] text-brew-clay group-hover:bg-brew-clay group-hover:text-mist-cream transition-all duration-300">
+                              M
+                            </div>
+                          </div>
+                          <h3 className="font-serif text-2xl font-medium mb-3">The Menu Ritual</h3>
+                          <p className="font-sans text-xs text-earth-dark/70 leading-relaxed mb-6">
+                            Artisanal single origin pour-overs paired with laminated viennoiserie. View specifications and pre-order.
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => {
+                            setActivePage('menu');
+                            window.scrollTo({ top: 0, behavior: 'instant' });
+                          }}
+                          className="flex items-center gap-2 font-sans text-[10px] font-bold tracking-widest uppercase hover:text-brew-clay transition-colors mt-auto text-left border-none bg-transparent cursor-pointer"
+                        >
+                          VIEW MENU <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                      </div>
 
-              {/* Operating hours, maps & newsletter subscription */}
-              <Visit onOpenPreOrder={() => setIsPreOrderOpen(true)} />
+                      {/* Chapter 7: Visit the Atelier */}
+                      <div className="bg-parchment/10 border border-earth-dark/15 p-8 flex flex-col justify-between hover:shadow-lg transition-all duration-300 relative group min-h-[320px] text-earth-dark lg:col-span-3 lg:max-w-md lg:mx-auto w-full">
+                        <div className="absolute top-0 left-0 right-0 h-[3px] bg-brew-clay/20 group-hover:bg-brew-clay transition-colors" />
+                        <div>
+                          <div className="flex justify-between items-start mb-6">
+                            <span className="font-mono text-xs text-earth-dark/40 font-bold">CHAPTER 07</span>
+                            <span className="font-serif text-sm text-brew-clay">MAP</span>
+                          </div>
+                          <h3 className="font-serif text-2xl font-medium mb-3">Visit the Atelier</h3>
+                          <p className="font-sans text-xs text-earth-dark/70 leading-relaxed mb-6">
+                            Operating hours, maps, and instructions to enjoy hours of stillness on Rajpur Road, Dehradun.
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => {
+                            setActivePage('visit');
+                            window.scrollTo({ top: 0, behavior: 'instant' });
+                          }}
+                          className="flex items-center gap-2 font-sans text-[10px] font-bold tracking-widest uppercase hover:text-brew-clay transition-colors mt-auto text-left border-none bg-transparent cursor-pointer"
+                        >
+                          PLAN VISIT <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                      </div>
+                    </div>
+                  </section>
+                </>
+              ) : (
+                <div className="pt-[72px]">
+                  {/* Sticky Sub-Header with Close button */}
+                  <div className="bg-mist-cream/95 backdrop-blur-md border-b border-earth-dark/10 sticky top-[72px] z-40 py-4 px-6 md:px-12 shadow-sm">
+                    <div className="max-w-6xl mx-auto flex justify-between items-center text-earth-dark">
+                      <div className="flex items-center gap-3">
+                        <span className="font-mono text-[10px] font-bold text-brew-clay tracking-widest uppercase">
+                          FRAGMENTO ATELIER
+                        </span>
+                        <span className="h-3 w-[1px] bg-earth-dark/20" />
+                        <span className="font-serif text-base italic">
+                          {activePage === 'provenance' && 'Philosophy & Provenance'}
+                          {activePage === 'story' && 'Our Chronicle & Sourcing'}
+                          {activePage === 'chikmagalur' && 'The Terraces of Chikmagalur'}
+                          {activePage === 'ritual' && 'Brewing Extraction Process'}
+                          {activePage === 'journal' && 'The Sourcing Journal'}
+                          {activePage === 'menu' && 'Seasonal Offerings Menu'}
+                          {activePage === 'visit' && 'Atelier Hours & Locator'}
+                        </span>
+                      </div>
+                      <button
+                        onClick={() => {
+                          setActivePage(null);
+                          window.scrollTo({ top: 0, behavior: 'instant' });
+                        }}
+                        className="flex items-center gap-2 border border-earth-dark/20 hover:border-brew-clay hover:text-brew-clay px-4 py-2 font-sans text-[10px] font-bold tracking-widest uppercase transition-colors cursor-pointer group"
+                      >
+                        <X className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" />
+                        <span>Return to Chapters</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Actual Page Component */}
+                  {activePage === 'provenance' && <Provenance />}
+                  {activePage === 'story' && <OurStory />}
+                  {activePage === 'chikmagalur' && (
+                    <ChikmagalurSection 
+                      onAddToCart={handleAddToCart}
+                      onOpenPreOrder={() => setIsPreOrderOpen(true)}
+                    />
+                  )}
+                  {activePage === 'ritual' && <RitualBento />}
+                  {activePage === 'journal' && <Journal />}
+                  {activePage === 'menu' && (
+                    <>
+                      <MenuRitual
+                        onAddToCart={handleAddToCart}
+                        onSelectItem={(item) => setSelectedItem(item)}
+                      />
+                      <LotMeta />
+                    </>
+                  )}
+                  {activePage === 'visit' && <Visit onOpenPreOrder={() => setIsPreOrderOpen(true)} />}
+                </div>
+              )}
             </motion.div>
           ) : (
             <MemberRitual
@@ -264,48 +485,72 @@ export default function App() {
               <ul className="space-y-2 font-serif text-sm">
                 <li>
                   <button
-                    onClick={() => document.getElementById('provenance-section')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="hover:text-brew-clay transition-colors cursor-pointer"
+                    onClick={() => {
+                      setView('landing');
+                      setActivePage('provenance');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="hover:text-brew-clay transition-colors cursor-pointer text-left border-none bg-transparent"
                   >
                     Our Philosophy
                   </button>
                 </li>
                 <li>
                   <button
-                    onClick={() => document.getElementById('chikmagalur-section')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="hover:text-brew-clay transition-colors cursor-pointer"
+                    onClick={() => {
+                      setView('landing');
+                      setActivePage('chikmagalur');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="hover:text-brew-clay transition-colors cursor-pointer text-left border-none bg-transparent"
                   >
                     The Hills of Chikmagalur
                   </button>
                 </li>
                 <li>
                   <button
-                    onClick={() => document.getElementById('journal-section')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="hover:text-brew-clay transition-colors cursor-pointer"
+                    onClick={() => {
+                      setView('landing');
+                      setActivePage('journal');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="hover:text-brew-clay transition-colors cursor-pointer text-left border-none bg-transparent"
                   >
                     The Journal
                   </button>
                 </li>
                 <li>
                   <button
-                    onClick={() => document.getElementById('ritual-section')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="hover:text-brew-clay transition-colors cursor-pointer"
+                    onClick={() => {
+                      setView('landing');
+                      setActivePage('ritual');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="hover:text-brew-clay transition-colors cursor-pointer text-left border-none bg-transparent"
                   >
                     The Process
                   </button>
                 </li>
                 <li>
                   <button
-                    onClick={() => document.getElementById('menu-ritual-section')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="hover:text-brew-clay transition-colors cursor-pointer"
+                    onClick={() => {
+                      setView('landing');
+                      setActivePage('menu');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="hover:text-brew-clay transition-colors cursor-pointer text-left border-none bg-transparent"
                   >
                     The Menu
                   </button>
                 </li>
                 <li>
                   <button
-                    onClick={() => document.getElementById('visit-section')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="hover:text-brew-clay transition-colors cursor-pointer"
+                    onClick={() => {
+                      setView('landing');
+                      setActivePage('visit');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="hover:text-brew-clay transition-colors cursor-pointer text-left border-none bg-transparent"
                   >
                     Location & Hours
                   </button>

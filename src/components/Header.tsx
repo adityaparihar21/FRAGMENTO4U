@@ -18,6 +18,8 @@ interface HeaderProps {
   onLogout: () => void;
   view: 'landing' | 'member-ritual';
   onViewChange: (view: 'landing' | 'member-ritual') => void;
+  activePage: string | null;
+  onActivePageChange: (page: string | null) => void;
 }
 
 export default function Header({ 
@@ -29,7 +31,9 @@ export default function Header({
   onOpenLogin,
   onLogout,
   view,
-  onViewChange
+  onViewChange,
+  activePage,
+  onActivePageChange
 }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -63,25 +67,11 @@ export default function Header({
   }, []);
 
 
-  const scrollToSection = (id: string) => {
-    setDrawerOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleLandingNav = (sectionId: string) => {
+  const handleLandingNav = (pageId: string) => {
     onViewChange('landing');
+    onActivePageChange(pageId);
     setDrawerOpen(false);
-    setTimeout(() => {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }, 120);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -111,6 +101,7 @@ export default function Header({
           <div
             onClick={() => {
               onViewChange('landing');
+              onActivePageChange(null);
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             className="font-serif text-2xl md:text-3xl tracking-[0.25em] text-earth-dark font-medium cursor-pointer text-shadow-elegant select-none active:scale-95 transition-transform"
@@ -122,40 +113,44 @@ export default function Header({
           {/* Right Controls */}
           <div className="flex items-center gap-4 md:gap-8">
             <button
-              onClick={() => handleLandingNav('our-story-section')}
+              onClick={() => handleLandingNav('story')}
               className={`hidden lg:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors cursor-pointer ${
-                view === 'landing' && activeSection === 'story' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
+                view === 'landing' && activePage === 'story' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
               }`}
             >
               OUR STORY
             </button>
             <button
-              onClick={() => handleLandingNav('chikmagalur-section')}
+              onClick={() => handleLandingNav('chikmagalur')}
               className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors cursor-pointer ${
-                view === 'landing' && activeSection === 'chikmagalur' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
+                view === 'landing' && activePage === 'chikmagalur' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
               }`}
             >
               CHIKMAGALUR
             </button>
             <button
-              onClick={() => handleLandingNav('journal-section')}
+              onClick={() => handleLandingNav('journal')}
               className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors cursor-pointer ${
-                view === 'landing' && activeSection === 'journal' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
+                view === 'landing' && activePage === 'journal' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
               }`}
             >
               THE JOURNAL
             </button>
             <button
-              onClick={() => handleLandingNav('menu-ritual-section')}
+              onClick={() => handleLandingNav('menu')}
               className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors cursor-pointer ${
-                view === 'landing' && activeSection === 'menu' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
+                view === 'landing' && activePage === 'menu' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
               }`}
             >
               MENU RITUAL
             </button>
             <button
               onClick={() => {
-                onViewChange('member-ritual');
+                if (userProfile && userProfile.isLoggedIn) {
+                  onViewChange('member-ritual');
+                } else {
+                  onOpenLogin();
+                }
               }}
               className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors cursor-pointer ${
                 view === 'member-ritual' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
@@ -164,9 +159,9 @@ export default function Header({
               THE RITUAL
             </button>
             <button
-              onClick={() => handleLandingNav('visit-section')}
+              onClick={() => handleLandingNav('visit')}
               className={`hidden lg:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors cursor-pointer ${
-                view === 'landing' && activeSection === 'visit' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
+                view === 'landing' && activePage === 'visit' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
               }`}
             >
               VISIT
@@ -309,7 +304,7 @@ export default function Header({
                 {/* Navigation links */}
                 <nav className="flex flex-col gap-8">
                   <button
-                    onClick={() => handleLandingNav('provenance-section')}
+                    onClick={() => handleLandingNav('provenance')}
                     className="flex items-center gap-4 text-left group cursor-pointer w-full bg-transparent border-none"
                   >
                     <Compass className="w-5 h-5 text-brew-clay group-hover:rotate-45 transition-transform duration-300" />
@@ -324,7 +319,7 @@ export default function Header({
                   </button>
 
                   <button
-                    onClick={() => handleLandingNav('our-story-section')}
+                    onClick={() => handleLandingNav('story')}
                     className="flex items-center gap-4 text-left group cursor-pointer w-full bg-transparent border-none"
                   >
                     <Award className="w-5 h-5 text-brew-clay group-hover:scale-110 transition-transform duration-300" />
@@ -339,7 +334,7 @@ export default function Header({
                   </button>
 
                   <button
-                    onClick={() => handleLandingNav('chikmagalur-section')}
+                    onClick={() => handleLandingNav('chikmagalur')}
                     className="flex items-center gap-4 text-left group cursor-pointer w-full"
                   >
                     <Leaf className="w-5 h-5 text-brew-clay group-hover:scale-110 transition-transform duration-300" />
@@ -354,7 +349,7 @@ export default function Header({
                   </button>
 
                   <button
-                    onClick={() => handleLandingNav('journal-section')}
+                    onClick={() => handleLandingNav('journal')}
                     className="flex items-center gap-4 text-left group cursor-pointer w-full"
                   >
                     <BookOpen className="w-5 h-5 text-brew-clay group-hover:scale-110 transition-transform duration-300" />
@@ -369,7 +364,7 @@ export default function Header({
                   </button>
 
                   <button
-                    onClick={() => handleLandingNav('ritual-section')}
+                    onClick={() => handleLandingNav('ritual')}
                     className="flex items-center gap-4 text-left group cursor-pointer w-full"
                   >
                     <Coffee className="w-5 h-5 text-brew-clay group-hover:scale-110 transition-transform duration-300" />
@@ -384,7 +379,7 @@ export default function Header({
                   </button>
 
                   <button
-                    onClick={() => handleLandingNav('menu-ritual-section')}
+                    onClick={() => handleLandingNav('menu')}
                     className="flex items-center gap-4 text-left group cursor-pointer w-full"
                   >
                     <div className="w-5 h-5 border border-brew-clay flex items-center justify-center font-serif text-xs text-brew-clay group-hover:bg-brew-clay group-hover:text-mist-cream transition-all">
@@ -402,7 +397,11 @@ export default function Header({
 
                   <button
                     onClick={() => {
-                      onViewChange('member-ritual');
+                      if (userProfile && userProfile.isLoggedIn) {
+                        onViewChange('member-ritual');
+                      } else {
+                        onOpenLogin();
+                      }
                       setDrawerOpen(false);
                     }}
                     className="flex items-center gap-4 text-left group cursor-pointer w-full bg-transparent border-none"
@@ -419,7 +418,7 @@ export default function Header({
                   </button>
 
                   <button
-                    onClick={() => handleLandingNav('visit-section')}
+                    onClick={() => handleLandingNav('visit')}
                     className="flex items-center gap-4 text-left group cursor-pointer w-full bg-transparent border-none"
                   >
                     <MapPin className="w-5 h-5 text-brew-clay group-hover:translate-y-[-2px] transition-transform duration-300" />
