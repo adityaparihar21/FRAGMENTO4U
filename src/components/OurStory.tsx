@@ -13,7 +13,13 @@ export default function OurStory() {
       <div className="max-w-6xl mx-auto">
         
         {/* Section Header */}
-        <div className="max-w-2xl mb-20">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-2xl mb-20"
+        >
           <span className="font-sans text-[10px] uppercase font-bold text-brew-clay tracking-[0.25em] mb-4 block">
             SINCE MMXXI / THE CHRONICLES OF PERSISTENCE
           </span>
@@ -23,12 +29,18 @@ export default function OurStory() {
           <p className="font-sans text-sm md:text-base text-on-surface-variant leading-relaxed opacity-90">
             Fragmento is more than a roastery. It is a slow pursuit of the singular moment where craft meets provenance. We reduce the process to its essential, highest-quality fragments to allow the true essence of the bean to speak.
           </p>
-        </div>
+        </motion.div>
 
         {/* 01 Sourcing */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center mb-24 md:mb-32">
           {/* Chapter & Title */}
-          <div className="lg:col-span-5 flex flex-col justify-center">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="lg:col-span-5 flex flex-col justify-center"
+          >
             <div className="flex items-center gap-4 mb-6">
               <span className="font-sans text-xl font-bold text-brew-clay tracking-wider">01</span>
               <div className="h-[0.5px] flex-grow bg-earth-dark/20"></div>
@@ -49,10 +61,16 @@ export default function OurStory() {
             <p className="font-sans text-sm md:text-base text-on-surface-variant leading-relaxed">
               Our journey begins in the high-altitude canopy of the Baba Budan Giri hills in Karnataka. We partner with legacy estates that treat the coffee cherry not as a commodity, but as a vintage, shade-growing our lots under lush tropical forests.
             </p>
-          </div>
+          </motion.div>
 
           {/* Image Block */}
-          <div className="lg:col-start-7 lg:col-span-6 relative group">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="lg:col-start-7 lg:col-span-6 relative group"
+          >
             <div className="absolute -inset-2 border-[0.5px] border-earth-dark/10 pointer-events-none translate-x-3 translate-y-3 transition-transform duration-500 group-hover:translate-x-1.5 group-hover:translate-y-1.5" />
             <div className="aspect-[4/3] w-full overflow-hidden bg-parchment/10 relative p-1.5 border border-earth-dark/5">
               <img
@@ -67,13 +85,19 @@ export default function OurStory() {
                 </span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* 02 Selection */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center mb-24 md:mb-32">
           {/* Image Block (First on Desktop) */}
-          <div className="lg:col-span-6 relative group order-2 lg:order-1">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="lg:col-span-6 relative group order-2 lg:order-1"
+          >
             <div className="absolute -inset-2 border-[0.5px] border-earth-dark/10 pointer-events-none -translate-x-3 translate-y-3 transition-transform duration-500 group-hover:-translate-x-1.5 group-hover:translate-y-1.5" />
             <div className="grid grid-cols-2 gap-4 bg-parchment/10 p-1.5 border border-earth-dark/5">
               <div className="aspect-square overflow-hidden">
@@ -90,10 +114,16 @@ export default function OurStory() {
                 </span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Chapter & Title */}
-          <div className="lg:col-start-8 lg:col-span-5 flex flex-col justify-center order-1 lg:order-2">
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="lg:col-start-8 lg:col-span-5 flex flex-col justify-center order-1 lg:order-2"
+          >
             <div className="flex items-center gap-4 mb-6">
               <span className="font-sans text-xl font-bold text-brew-clay tracking-wider">02</span>
               <div className="h-[0.5px] flex-grow bg-earth-dark/20"></div>
@@ -111,13 +141,19 @@ export default function OurStory() {
             <p className="font-sans text-sm md:text-base text-on-surface-variant leading-relaxed">
               Excellence is binary. We only curate rare micro-lots that exceed an 86-point cupping score. Every single lot undergoes precise grading, ensuring each fragment of your morning is distinct in its sensory complexity.
             </p>
-          </div>
+          </motion.div>
         </div>
 
         {/* 03 Roasting */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center mb-24 md:mb-32">
           {/* Chapter & Title */}
-          <div className="lg:col-span-5 flex flex-col justify-center">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="lg:col-span-5 flex flex-col justify-center"
+          >
             <div className="flex items-center gap-4 mb-6">
               <span className="font-sans text-xl font-bold text-brew-clay tracking-wider">03</span>
               <div className="h-[0.5px] flex-grow bg-earth-dark/20"></div>
@@ -138,10 +174,16 @@ export default function OurStory() {
             <p className="font-sans text-sm md:text-base text-on-surface-variant leading-relaxed">
               We roast in fragments. Small quantities, meticulously monitored by our roasters, to preserve the terroir's volatile aromatics and unique acids that mass-roasting destroys.
             </p>
-          </div>
+          </motion.div>
 
           {/* Image Block */}
-          <div className="lg:col-start-7 lg:col-span-6 relative group">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="lg:col-start-7 lg:col-span-6 relative group"
+          >
             <div className="absolute -inset-2 border-[0.5px] border-earth-dark/10 pointer-events-none translate-x-3 translate-y-3 transition-transform duration-500 group-hover:translate-x-1.5 group-hover:translate-y-1.5" />
             <div className="aspect-[16/10] w-full overflow-hidden bg-parchment/10 relative p-1.5 border border-earth-dark/5">
               <img
@@ -156,13 +198,19 @@ export default function OurStory() {
                 </span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* 04 Service */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center">
           {/* Image Block (First on Desktop) */}
-          <div className="lg:col-span-6 relative group order-2 lg:order-1">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="lg:col-span-6 relative group order-2 lg:order-1"
+          >
             <div className="absolute -inset-2 border-[0.5px] border-earth-dark/10 pointer-events-none -translate-x-3 translate-y-3 transition-transform duration-500 group-hover:-translate-x-1.5 group-hover:translate-y-1.5" />
             <div className="aspect-[16/10] w-full overflow-hidden bg-parchment/10 relative p-1.5 border border-earth-dark/5">
               <img
@@ -171,10 +219,16 @@ export default function OurStory() {
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-102"
               />
             </div>
-          </div>
+          </motion.div>
 
           {/* Chapter & Title */}
-          <div className="lg:col-start-8 lg:col-span-5 flex flex-col justify-center order-1 lg:order-2">
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="lg:col-start-8 lg:col-span-5 flex flex-col justify-center order-1 lg:order-2"
+          >
             <div className="flex items-center gap-4 mb-6">
               <span className="font-sans text-xl font-bold text-brew-clay tracking-wider">04</span>
               <div className="h-[0.5px] flex-grow bg-earth-dark/20"></div>
@@ -195,7 +249,7 @@ export default function OurStory() {
             <p className="font-sans text-sm md:text-base text-on-surface-variant leading-relaxed">
               Every cup we serve on the Rajpur Road bar is brewed with absolute intention. We measure, dial in, and pour slowly to ensure that your experience is unhurried and restorative.
             </p>
-          </div>
+          </motion.div>
         </div>
 
       </div>

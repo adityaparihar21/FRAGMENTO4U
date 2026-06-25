@@ -39,22 +39,24 @@ export default function Hero({ onOpenPreOrder }: HeroProps) {
         <img
           src="/screen.png"
           alt="Barista pouring V60 in warm sunlit cafe"
-          className="w-full h-full object-cover scale-105 opacity-80"
+          className="w-full h-full object-cover scale-105 opacity-90"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-earth-dark/40 via-earth-dark/20 to-mist-cream/95 md:from-earth-dark/30 md:via-earth-dark/10" />
+        <div className="absolute inset-0 bg-earth-dark/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-earth-dark/70 via-earth-dark/50 to-mist-cream/95 md:from-earth-dark/60 md:via-earth-dark/40" />
       </div>
 
       {/* Hero Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl flex flex-col items-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 1.2, ease: 'easeOut' }}
           className="flex items-center gap-2 mb-4"
         >
           <div className="w-8 h-px bg-parchment/60" />
-          <span className="font-sans text-[10px] uppercase font-semibold text-parchment tracking-[0.3em]">
+          <span className="font-sans text-[10px] uppercase font-semibold text-mist-cream tracking-[0.3em]">
             01 / SPECIALTY COFFEE ATELIER
           </span>
           <div className="w-8 h-px bg-parchment/60" />
@@ -62,7 +64,8 @@ export default function Hero({ onOpenPreOrder }: HeroProps) {
 
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 1.4, delay: 0.2, ease: 'easeOut' }}
           className="font-serif text-5xl md:text-7xl text-mist-cream font-medium tracking-tight leading-tight mb-6"
         >
@@ -72,7 +75,8 @@ export default function Hero({ onOpenPreOrder }: HeroProps) {
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 1.2, delay: 0.5 }}
           className="font-serif text-lg md:text-2xl text-mist-cream/90 italic max-w-xl mb-12 leading-relaxed"
         >
@@ -81,7 +85,8 @@ export default function Hero({ onOpenPreOrder }: HeroProps) {
 
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.8 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >

@@ -16,7 +16,13 @@ export default function Provenance() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center mb-24 md:mb-36">
           
           {/* Text block */}
-          <div className="lg:col-span-5 flex flex-col justify-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="lg:col-span-5 flex flex-col justify-center"
+          >
             <span className="font-sans text-[10px] uppercase font-semibold text-brew-clay tracking-[0.25em] mb-4 block">
               01 / PHILOSOPHY
             </span>
@@ -29,10 +35,16 @@ export default function Provenance() {
             <p className="font-sans text-sm text-on-surface-variant/80 leading-relaxed italic border-l-2 border-parchment pl-4 py-1">
               Shade-grown under massive forest canopies in Coorg, Karnataka, surrounded by orange orchards and wild pepper vines.
             </p>
-          </div>
+          </motion.div>
           
           {/* Image Block */}
-          <div className="lg:col-start-7 lg:col-span-6 relative group">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="lg:col-start-7 lg:col-span-6 relative group"
+          >
             {/* Outline accent layer */}
             <div className="absolute -inset-2 border-[0.5px] border-earth-dark/10 pointer-events-none translate-x-3 translate-y-3 transition-transform duration-500 group-hover:translate-x-1 group-hover:translate-y-1" />
             <div className="aspect-[4/3] w-full overflow-hidden bg-parchment/10 relative p-1.5 border border-earth-dark/5">
@@ -48,7 +60,7 @@ export default function Provenance() {
                 </span>
               </div>
             </div>
-          </div>
+          </motion.div>
           
         </div>
 
@@ -56,7 +68,13 @@ export default function Provenance() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center">
           
           {/* Image Block (Order first on desktop) */}
-          <div className="lg:col-span-7 relative group order-2 lg:order-1">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="lg:col-span-7 relative group order-2 lg:order-1"
+          >
             <div className="absolute -inset-2 border-[0.5px] border-earth-dark/10 pointer-events-none -translate-x-3 translate-y-3 transition-transform duration-500 group-hover:-translate-x-1 group-hover:translate-y-1" />
             <div className="aspect-[16/10] w-full overflow-hidden bg-parchment/10 relative p-1.5 border border-earth-dark/5">
               <img
@@ -71,10 +89,16 @@ export default function Provenance() {
                 </span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Text block */}
-          <div className="lg:col-start-9 lg:col-span-4 flex flex-col justify-center order-1 lg:order-2">
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="lg:col-start-9 lg:col-span-4 flex flex-col justify-center order-1 lg:order-2"
+          >
             <span className="font-sans text-[10px] uppercase font-semibold text-brew-clay tracking-[0.25em] mb-4 block">
               02 / CRAFT
             </span>
@@ -87,7 +111,7 @@ export default function Provenance() {
             <p className="font-sans text-sm text-on-surface-variant/80 leading-relaxed">
               Every profile is custom-curated, roasting just enough for the week's service to guarantee absolute freshness on the Rajpur Road bar.
             </p>
-          </div>
+          </motion.div>
 
         </div>
 
