@@ -1,21 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
+:root {
+  --earth-dark: #2B2623;
+  --mist-cream: #F9F6F0;
+  --parchment: #E8D9C5;
+  --surface-dim: #dcdad4;
+  --on-surface-variant: #4d4540;
+  --border-color: rgba(43, 38, 35, 0.15);
+}
+
+.dark {
+  --earth-dark: #F9F6F0;
+  --mist-cream: #1C1917;
+  --parchment: #2B2623;
+  --surface-dim: #12100F;
+  --on-surface-variant: #D1C7BD;
+  --border-color: rgba(249, 246, 240, 0.15);
+}
+
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "EB Garamond", Georgia, serif;
   
-  --color-earth-dark: #2B2623;
+  --color-earth-dark: var(--earth-dark);
   --color-brew-clay: #C16646;
-  --color-mist-cream: #F9F6F0;
-  --color-parchment: #E8D9C5;
-  --color-surface-dim: #dcdad4;
-  --color-on-surface-variant: #4d4540;
+  --color-mist-cream: var(--mist-cream);
+  --color-parchment: var(--parchment);
+  --color-surface-dim: var(--surface-dim);
+  --color-on-surface-variant: var(--on-surface-variant);
 }
 
 @layer utilities {
   .fragment-border {
-    border: 0.5px solid rgba(43, 38, 35, 0.15);
+    border: 0.5px solid var(--border-color);
   }
   
   .text-shadow-elegant {
@@ -28,11 +46,11 @@
   }
   
   ::-webkit-scrollbar-track {
-    background: #F9F6F0;
+    background: var(--mist-cream);
   }
   
   ::-webkit-scrollbar-thumb {
-    background: #2B2623;
+    background: var(--earth-dark);
     border-radius: 0px;
   }
   

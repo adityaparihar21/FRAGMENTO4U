@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Menu, ShoppingBag, X, Coffee, MapPin, Compass, BookOpen, User, LogOut, Leaf, Award } from 'lucide-react';
+import { Menu, ShoppingBag, X, Coffee, MapPin, Compass, BookOpen, User, LogOut, Leaf, Award, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { UserProfile } from '../types';
 
@@ -34,6 +34,25 @@ export default function Header({
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
+
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('theme');
+      if (saved) return saved === 'dark';
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDark]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -201,6 +220,20 @@ export default function Header({
                 </button>
               )}
             </div>
+
+            {/* Global Theme Toggle */}
+            <button
+              onClick={() => setIsDark(!isDark)}
+              className="p-2 hover:text-brew-clay text-earth-dark transition-colors group cursor-pointer flex items-center"
+              aria-label="Toggle visual theme"
+              id="theme-toggle-btn"
+            >
+              {isDark ? (
+                <Sun className="w-5 h-5 group-hover:rotate-45 transition-transform duration-500" />
+              ) : (
+                <Moon className="w-5 h-5 group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-500" />
+              )}
+            </button>
 
             {/* Shopping Cart button */}
             <button
@@ -392,6 +425,23 @@ export default function Header({
                     </div>
                   </button>
                 </nav>
+              </div>
+
+              {/* Drawer Theme Toggle */}
+              <div className="border-t border-earth-dark/15 pt-6 pb-2">
+                <button
+                  onClick={() => setIsDark(!isDark)}
+                  className="flex items-center justify-between w-full p-2.5 bg-parchment/10 hover:bg-parchment/20 border border-earth-dark/10 transition-colors group cursor-pointer rounded-none text-left"
+                >
+                  <span className="font-label-caps text-[10px] text-earth-dark font-bold tracking-widest uppercase">
+                    VISUAL THEME: {isDark ? 'DARK ATELIER' : 'LIGHT MIST'}
+                  </span>
+                  {isDark ? (
+                    <Sun className="w-4 h-4 text-brew-clay group-hover:rotate-45 transition-transform duration-500" />
+                  ) : (
+                    <Moon className="w-4 h-4 text-brew-clay group-hover:scale-110 transition-transform duration-500" />
+                  )}
+                </button>
               </div>
 
               {/* Drawer Footer */}
