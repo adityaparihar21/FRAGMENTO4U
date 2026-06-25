@@ -33,16 +33,16 @@ export default function Hero({ onOpenPreOrder }: HeroProps) {
     <section className="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden">
       {/* Background Image with Parallax & Dark Overlay */}
       <div 
-        className="absolute inset-0 z-0 bg-[#D4C3B3]"
+        className="absolute inset-0 z-0 bg-earth-dark"
         style={{ transform: `translateY(${offsetY * 0.3}px)` }}
       >
         <img
           src="/screen.png"
           alt="Barista pouring V60 in warm sunlit cafe"
-          className="w-full h-full object-cover scale-105 opacity-60 mix-blend-overlay"
+          className="w-full h-full object-cover scale-105 opacity-80"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-earth-dark/60 via-earth-dark/40 to-mist-cream/95 md:from-earth-dark/50 md:via-earth-dark/20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-earth-dark/40 via-earth-dark/20 to-mist-cream/95 md:from-earth-dark/30 md:via-earth-dark/10" />
       </div>
 
       {/* Hero Content */}

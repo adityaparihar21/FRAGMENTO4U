@@ -79,8 +79,8 @@ export default function Header({
       <header
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
           scrolled
-            ? 'bg-mist-cream/90 backdrop-blur-md border-b border-earth-dark/10 py-4 shadow-sm'
-            : 'bg-transparent py-6'
+            ? 'bg-mist-cream/95 backdrop-blur-md border-b border-earth-dark/10 py-4 shadow-sm'
+            : 'bg-mist-cream/90 backdrop-blur-sm py-4 shadow-sm'
         }`}
       >
         <div className="max-w-6xl mx-auto px-6 md:px-12 flex justify-between items-center">
@@ -244,10 +244,10 @@ export default function Header({
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'tween', duration: 0.4, ease: 'easeOut' }}
-              className="relative w-full max-w-sm bg-mist-cream h-full p-8 flex flex-col justify-between shadow-2xl z-10 fragment-border"
+              className="relative w-full max-w-sm bg-mist-cream h-full p-6 md:p-8 flex flex-col shadow-2xl z-10 fragment-border overflow-y-auto overscroll-contain"
               id="drawer-panel"
             >
-              <div>
+              <div className="flex-grow">
                 {/* Header inside drawer */}
                 <div className="flex justify-between items-center mb-16">
                   <span className="font-serif text-2xl tracking-[0.2em] text-earth-dark">FRAGMENTO</span>
