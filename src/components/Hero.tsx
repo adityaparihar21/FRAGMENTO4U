@@ -37,12 +37,12 @@ export default function Hero({ onOpenPreOrder }: HeroProps) {
         style={{ transform: `translateY(${offsetY * 0.3}px)` }}
       >
         <img
-          src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=2400"
-          alt="Fragmento Cafe Interior"
-          className="w-full h-full object-cover scale-105 brightness-[0.85] contrast-[1.05]"
+          src="/screen.png"
+          alt="Barista pouring V60 in warm sunlit cafe"
+          className="w-full h-full object-cover scale-105 opacity-60 mix-blend-overlay"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-earth-dark/30 via-earth-dark/10 to-mist-cream/95" />
+        <div className="absolute inset-0 bg-gradient-to-b from-earth-dark/60 via-earth-dark/40 to-mist-cream/95 md:from-earth-dark/50 md:via-earth-dark/20" />
       </div>
 
       {/* Hero Content */}
