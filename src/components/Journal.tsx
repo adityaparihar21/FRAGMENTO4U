@@ -116,29 +116,29 @@ export default function Journal() {
         </div>
 
         {/* Hero Cover Fragment */}
-        <div className="relative w-full aspect-[4/5] md:aspect-[21/9] mb-16 overflow-hidden border border-earth-dark/5 shadow-sm group">
+        <div className="relative w-full aspect-[4/5] md:aspect-[21/9] mb-16 overflow-hidden border border-earth-dark/10 shadow-sm group">
           <img 
             alt="Atelier slow coffee brewing" 
-            className="absolute inset-0 w-full h-full object-cover grayscale-[20%] group-hover:scale-102 transition-transform duration-[2000ms]" 
-            src="https://lh3.googleusercontent.com/aida/AP1WRLvPq2sThLLtXCWWg1KB58ndexhhCEdvQ2iHKFOmwCcrvbawufiGpTSlWTWDjoAtKcARyYnPS0n3Enlh-4PsFRmxIKIgXFi64uCgGr5GazHH989EpClp1gez5JCD1cbm0HtKxVl0vzCW1fK9hQnrGbHCcJK_-p1ZCYwdiR8irW5NtVhLDMZs0D9BHHduMgj-eKGy1v2ihZfQAOC3HfRZ7Fk_Dnq4RQyO2OpRuFjdqcE3SHVawVd0HTeExBA"
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-102 transition-transform duration-[2000ms]" 
+            src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=1800"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary-container/85 via-primary-container/40 to-transparent" />
-          <div className="absolute bottom-8 left-8 right-8 md:bottom-12 md:left-12 md:right-12 text-mist-cream flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/20 md:bg-gradient-to-r md:from-black/90 md:via-black/55 md:to-transparent" />
+          <div className="absolute bottom-8 left-8 right-8 md:bottom-12 md:left-12 md:right-12 text-[#F9F6F0] flex flex-col md:flex-row md:items-end justify-between gap-6 z-10">
             <div className="max-w-xl">
-              <span className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-parchment mb-2 block">
+              <span className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-[#E8D9C5] mb-2 block">
                 MAIN FEATURE
               </span>
-              <h3 className="font-serif text-3xl md:text-5xl text-mist-cream leading-tight mb-4">
+              <h3 className="font-serif text-3xl md:text-5xl text-[#F9F6F0] leading-tight mb-4 text-shadow-elegant font-medium">
                 The Art of the Slow Pour
               </h3>
-              <p className="font-sans text-xs md:text-sm text-mist-cream/80 leading-relaxed">
+              <p className="font-sans text-xs md:text-sm text-[#F9F6F0]/90 leading-relaxed font-light">
                 In a world obsessed with speed, we find solace in the ritual of the fragment—each single drop a testament to patience. Read our deep study on Dehradun's quietest brewing bar.
               </p>
             </div>
             <button 
               onClick={() => setSelectedArticle(articles[0])}
-              className="bg-brew-clay hover:bg-earth-dark hover:text-parchment text-mist-cream border-none font-sans font-semibold text-[10px] tracking-[0.15em] px-6 py-3.5 uppercase transition-all duration-300 active:scale-95 whitespace-nowrap cursor-pointer self-start md:self-end"
+              className="bg-brew-clay hover:bg-[#2B2623] hover:text-[#E8D9C5] text-[#F9F6F0] border-none font-sans font-semibold text-[10px] tracking-[0.15em] px-6 py-3.5 uppercase transition-all duration-300 active:scale-95 whitespace-nowrap cursor-pointer self-start md:self-end shadow-md"
             >
               ENTER NARRATIVE
             </button>

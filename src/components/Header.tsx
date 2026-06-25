@@ -122,25 +122,33 @@ export default function Header({
           {/* Right Controls */}
           <div className="flex items-center gap-4 md:gap-8">
             <button
-              onClick={() => handleLandingNav('journal-section')}
-              className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors ${
-                view === 'landing' && activeSection === 'journal' ? 'text-brew-clay underline underline-offset-4' : 'text-earth-dark/70'
-              }`}
-            >
-              THE JOURNAL
-            </button>
-            <button
               onClick={() => handleLandingNav('our-story-section')}
-              className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors ${
-                view === 'landing' && activeSection === 'story' ? 'text-brew-clay underline underline-offset-4' : 'text-earth-dark/70'
+              className={`hidden lg:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors cursor-pointer ${
+                view === 'landing' && activeSection === 'story' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
               }`}
             >
               OUR STORY
             </button>
             <button
+              onClick={() => handleLandingNav('chikmagalur-section')}
+              className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors cursor-pointer ${
+                view === 'landing' && activeSection === 'chikmagalur' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
+              }`}
+            >
+              CHIKMAGALUR
+            </button>
+            <button
+              onClick={() => handleLandingNav('journal-section')}
+              className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors cursor-pointer ${
+                view === 'landing' && activeSection === 'journal' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
+              }`}
+            >
+              THE JOURNAL
+            </button>
+            <button
               onClick={() => handleLandingNav('menu-ritual-section')}
-              className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors ${
-                view === 'landing' && activeSection === 'menu' ? 'text-brew-clay underline underline-offset-4' : 'text-earth-dark/70'
+              className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors cursor-pointer ${
+                view === 'landing' && activeSection === 'menu' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
               }`}
             >
               MENU RITUAL
@@ -149,16 +157,16 @@ export default function Header({
               onClick={() => {
                 onViewChange('member-ritual');
               }}
-              className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors ${
-                view === 'member-ritual' ? 'text-brew-clay underline underline-offset-4' : 'text-earth-dark/70'
+              className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors cursor-pointer ${
+                view === 'member-ritual' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
               }`}
             >
               THE RITUAL
             </button>
             <button
               onClick={() => handleLandingNav('visit-section')}
-              className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors ${
-                view === 'landing' && activeSection === 'visit' ? 'text-brew-clay underline underline-offset-4' : 'text-earth-dark/70'
+              className={`hidden lg:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors cursor-pointer ${
+                view === 'landing' && activeSection === 'visit' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
               }`}
             >
               VISIT
