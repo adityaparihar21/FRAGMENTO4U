@@ -112,61 +112,6 @@ export default function Header({
 
           {/* Right Controls */}
           <div className="flex items-center gap-4 md:gap-8">
-            <button
-              onClick={() => handleLandingNav('story')}
-              className={`hidden lg:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors cursor-pointer ${
-                view === 'landing' && activePage === 'story' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
-              }`}
-            >
-              OUR STORY
-            </button>
-            <button
-              onClick={() => handleLandingNav('chikmagalur')}
-              className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors cursor-pointer ${
-                view === 'landing' && activePage === 'chikmagalur' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
-              }`}
-            >
-              CHIKMAGALUR
-            </button>
-            <button
-              onClick={() => handleLandingNav('journal')}
-              className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors cursor-pointer ${
-                view === 'landing' && activePage === 'journal' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
-              }`}
-            >
-              THE JOURNAL
-            </button>
-            <button
-              onClick={() => handleLandingNav('menu')}
-              className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors cursor-pointer ${
-                view === 'landing' && activePage === 'menu' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
-              }`}
-            >
-              MENU RITUAL
-            </button>
-            <button
-              onClick={() => {
-                if (userProfile && userProfile.isLoggedIn) {
-                  onViewChange('member-ritual');
-                } else {
-                  onOpenLogin();
-                }
-              }}
-              className={`hidden md:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors cursor-pointer ${
-                view === 'member-ritual' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
-              }`}
-            >
-              THE RITUAL
-            </button>
-            <button
-              onClick={() => handleLandingNav('visit')}
-              className={`hidden lg:inline-block font-label-caps text-xs tracking-widest hover:text-brew-clay transition-colors cursor-pointer ${
-                view === 'landing' && activePage === 'visit' ? 'text-brew-clay underline underline-offset-4 font-semibold' : 'text-earth-dark/70'
-              }`}
-            >
-              VISIT
-            </button>
-
             {/* User Presence indicator / Login */}
             <div className="relative">
               {userProfile && userProfile.isLoggedIn ? (
